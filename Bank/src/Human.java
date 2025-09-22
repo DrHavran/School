@@ -19,6 +19,11 @@ public class Human {
     }
 
     public BankAcc getAccount(int index){
+        if(accounts.size()<index){
+            System.out.println("Account of that index does not exist");
+            return null;
+        }
         return accounts.get(index-1);
     }
 }
+
