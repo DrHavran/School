@@ -1,0 +1,19 @@
+body{
+    background-color: #6fa242;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    scrollbar-width: 50px;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    background-color: #4d702d;
+    width: 100%;
+    align-items: center;
+}
+nav{
+    display: flex;
+}
