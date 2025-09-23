@@ -4,22 +4,67 @@ body{
     flex-direction: column;
     align-items: center;
     margin: 0px;
-    scrollbar-width: 50px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
-
 header{
+    position: fixed;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #4d702d;
     width: 100%;
-    align-items: center;
+    height: 110px;
+    color: white;
 }
 nav{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    margin-right: 3em;
+    height: 100%;
 }
-
+nav > a{
+    text-decoration: none;
+    transition: 0.5s ease;
+    color: white;
+}
+nav > a:hover{
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 5px black;
+}
+header > a{
+    padding-left: 2em;
+}
 footer{
     color: white;
     background-color: rgb(61, 57, 57);
     width: 100%;
+}
+.divider{
+    width: 90%;
+    height: 2px;
+    background-color: rgba(128, 128, 128, 0.395);
+    border-radius: 1em;
+}
+h1, h2{
+    color: white;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+#objednávka, #galerie, #location{
+    scroll-margin-top: 110px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.locationSplit{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+.locationSplit > div{
+    width: 30%;
 }
