@@ -12,9 +12,10 @@ public class Manager {
     public void MAKETHEMWORK(){
         day++;
         for(Employee employee : employees){
-            employee.clockedHours += 8;
+            employee.setClockedHours( 8 + employee.getClockedHours());
             if(day==30){
                 employee.getPaycheck();
+                employee.setClockedHours(0);
             }
         }
         if(day==30){
