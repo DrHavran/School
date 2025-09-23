@@ -17,3 +17,9 @@ header{
 nav{
     display: flex;
 }
+
+footer{
+    color: white;
+    background-color: rgb(61, 57, 57);
+    width: 100%;
+}
