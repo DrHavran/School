@@ -6,3 +6,9 @@ window.onload = function () {
         svátekText.innerHTML = "Dnes má svátek " + data.name + ", nezapomeň koupit kytku!"            
     })
 };
+function toggle(what){
+  const menu = document.getElementById(what);
+  const currentDisplay = window.getComputedStyle(menu).display;
+
+  menu.style.display = (currentDisplay === "none") ? "block" : "none";
+}

@@ -7,6 +7,9 @@ body{
     font-family: 'Roboto', sans-serif;
     text-align: center;
 }
+html{
+    overscroll-behavior: none;
+}
 header{
     position: fixed;
     display: flex;
@@ -25,12 +28,12 @@ nav{
     margin-right: 3em;
     height: 100%;
 }
-nav > a{
+a{
     text-decoration: none;
     transition: 0.5s ease;
     color: white;
 }
-nav > a:hover{
+a:hover{
     margin-bottom: 5px;
     text-shadow: 2px 2px 5px black;
 }
@@ -41,17 +44,22 @@ footer{
     color: white;
     background-color: rgb(61, 57, 57);
     width: 100%;
+    margin-top: 5ex;
 }
 .divider{
     width: 90%;
     height: 2px;
     background-color: rgba(128, 128, 128, 0.395);
     border-radius: 1em;
+    margin-top: 2ex;
 }
 h1, h2{
     color: white;
     font-family: 'Playfair Display', serif;
     text-align: center;
+}
+h1{
+    text-decoration: underline double;
 }
 #objednávka, #galerie, #location{
     scroll-margin-top: 110px;
@@ -67,4 +75,55 @@ h1, h2{
 }
 .split > div{
     width: 30%;
+}
+.whiteBox{
+    background-color: wheat;
+    border: gray 1px dashed;
+    border-radius: 5px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.special{
+    padding-left: 5em;
+    padding-right: 5em;
+}
+.popDown{
+    margin-top: 2ex;
+    width: 100%;
+    background-color: #4d702d;
+    height: 6ex;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border: black solid 1px;
+    cursor: pointer ;
+    border-radius: 5px 5px 0px 0px;
+}
+.popDown > h3{
+    padding-left: 3em;
+}
+.popDownBox{
+    display: none;
+    width: 100%;
+    background-color: white;
+    border-radius: 0px 0px 5px 5px;
+    border: gray dashed 2px;
+    border-top: none;
+}
+.product{
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.product > img{
+    width: 75px;
+    height: 75px;
+}
+.next{
+    display: flex;
+    justify-content: space-around;
 }
