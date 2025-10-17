@@ -1,35 +1,52 @@
 package org.example;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Logic {
-    ArrayList<Node> nodes;
+    Hashtable<Long, Node> nodes;
     private double maxX = 0;
-    private double minY = Double.MAX_EXPONENT;
+    private double minX = Double.MAX_VALUE;
+    private double maxY = 0;
+    private double minY = Double.MAX_VALUE;
+    private double scale;
 
     public Logic() {
-        nodes = new ArrayList<>();
+        nodes = new Hashtable<>();
         loadFile();
     }
 
     private void loadFile(){
         try{
             Scanner sc = new Scanner(new File("map.osm"));
+            sc.nextLine();
+            sc.nextLine();
+            loadBounds(sc.nextLine());
             while (sc.hasNextLine()){
                 String line = sc.nextLine();
                 if(line.contains("<node")){
-                    nodes.add(createNode(line));
+                    createNode(line);
                 }
-
             }
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
+    public double scaleX(double number){
+        return (number - minX) / (maxX - minX) * Settings.screenWidth;
+    }
+    public double scaleY(double number){
+        return Settings.screenHeight - (number-minY) / (maxY - minY) * Settings.screenHeight;
+    }
 
-    private Node createNode(String line){
+    private void loadBounds(String line){
+        String minLat = line.split("minlat")[1].split(" ")[0];
+        minLat = minLat.substring(minLat.indexOf('"') + 1, minLat.lastIndexOf('"'));
+        this.minY = minLat.substring(0, 8);
+    }
+
+    private void createNode(String line){
         String latNumber = line.split("lat")[1].split(" ")[0];
         latNumber = latNumber.substring(latNumber.indexOf('"') + 1, latNumber.lastIndexOf('"'));
         latNumber = latNumber.substring(0, 8);
@@ -45,19 +62,15 @@ public class Logic {
         double lon = Double.parseDouble(lonNumber);
         long id = Long.parseLong(idNumber);
 
-        if(lon>maxX){
-            maxX = lon;
-        }
-        if(lon<minY){
-            minY = lon;
-        }
-
-        System.out.println(lat + " " + lon + " " + id);
-
-        return new Node(lat, lon, id);
+        System.out.println(lat + " " + lon);
+        Node node = new Node(lat, lon);
+        nodes.put(id, node);
     }
 
-    public ArrayList<Node> getNodes() {
+    public Node getNode(long index) {
+        return nodes.get(index);
+    }
+    public Hashtable<Long, Node> getNodes(){
         return nodes;
     }
 }

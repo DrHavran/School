@@ -8,21 +8,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public static Logic logic;
-    private final int screenWidth = 800;
-    private final int screenHeight = 600;
 
     @Override
     public void start(Stage primaryStage) {
         Pane root = new Pane();
 
-        for(Node node : logic.getNodes()) {
-            Circle dot = new Circle(node.getLongitude(), node.getLatitude(), 2);
+        for(Node node : logic.getNodes().values()) {
+            Circle dot = new Circle(logic.scaleX(node.longitude()), logic.scaleY(node.latitude()), Settings.dotSize);
             root.getChildren().add(dot);
         }
 
 
 
-        Scene scene = new Scene(root, screenWidth, screenHeight);
+        Scene scene = new Scene(root, Settings.screenWidth, Settings.screenHeight);
 
         primaryStage.setTitle("Map");
         primaryStage.setScene(scene);
