@@ -1,0 +1,39 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: gray;
+}
+#board{
+    height: 320px;
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+}
+#board > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    height: 100px;
+    width: 100px;
+    border: 1px black solid;
+    font-size: 60px;
+}
+#turnShower{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border: 1px black dashed;
+    font-size: 60px;
+}
+button{
+    width: 120px;
+    height: 50px;
+    background-color: black;
+    color: wheat;
+    border-radius: 10px;
+    margin-top: 50px;
+}
