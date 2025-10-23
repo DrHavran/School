@@ -4,7 +4,7 @@ import org.example.Node;
 import org.example.Logic.NodeModel;
 import org.example.Path;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
