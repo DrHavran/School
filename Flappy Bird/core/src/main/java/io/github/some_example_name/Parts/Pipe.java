@@ -4,19 +4,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.some_example_name.Settings;
 
-public class Pipe extends Object {
+public class Pipe {
 
+    private Sprite sprite;
+    private String texture;
     private boolean pointCheck;
 
     public Pipe() {
-        Texture texture;
         if(Math.random() < 0.7){
-            texture = new Texture("Green_pipe.png");
+            texture = "Green_pipe";
         }else{
-            texture = new Texture("Red_pipe.png");
+            texture = "Red_pipe";
         }
 
-        this.sprite = new Sprite(texture);
+        this.sprite = new Sprite();
 
         sprite.setSize(150, Settings.height*2);
 
@@ -28,7 +29,6 @@ public class Pipe extends Object {
         this.pointCheck = true;
     }
 
-    @Override
     public void update(float speed){
         sprite.setX(getX() - speed);
     }
@@ -43,5 +43,17 @@ public class Pipe extends Object {
 
     public void checkPoint() {
         this.pointCheck = false;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setTexture(Texture texture){
+        sprite.setTexture(texture);
+    }
+
+    public String getTexture(){
+        return texture;
     }
 }

@@ -2,6 +2,7 @@ package io.github.some_example_name;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,10 +11,10 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import io.github.some_example_name.Parts.Background;
 import io.github.some_example_name.Parts.Bird;
-import io.github.some_example_name.Parts.Object;
 import io.github.some_example_name.Parts.Pipe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Logic {
 
@@ -31,8 +32,11 @@ public class Logic {
 
     private final Sound sound;
 
-    private final ArrayList<io.github.some_example_name.Parts.Object> objects; //logic stuff
-    private final ArrayList<io.github.some_example_name.Parts.Object> remove;
+    private final ArrayList<Pipe> pipes; //logic stuff
+    private final ArrayList<Pipe> remove;
+    private final ArrayList<Background> backgrounds;
+    private final HashMap<String, Texture> textures;
+    private Background rightBackground;
     private float pipeCount; //Counts frames between pipes spawn
     private float pipeAmount; //Line for pipeCount to cross
     private float pipeSpeed; //Speed of pipes
@@ -48,8 +52,11 @@ public class Logic {
 
         this.sound = Gdx.audio.newSound(Gdx.files.internal("point.mp3"));
 
-        this.objects = new ArrayList<>();
+        this.pipes = new ArrayList<>();
         this.remove = new ArrayList<>();
+        this.backgrounds = new ArrayList<>();
+        this.textures = new HashMap<>();
+        setUpTextures();
         this.pipeAmount = 200f;
         this.pipeCount = pipeAmount -1f;
         this.pipeSpeed = 4;
@@ -57,25 +64,44 @@ public class Logic {
         setUpBackground();
     }
 
+    private void setUpTextures() {
+        textures.put("Green_pipe", new Texture("Green_pipe.png"));
+        textures.put("Red_pipe", new Texture("Red_pipe.png"));
+    }
+
     private void setUpBackground(){
         float filled = 0f;
         while(filled < Settings.width){
             Background background = new Background(filled);
             filled += background.getSprite().getWidth();
-            objects.add(background);
+            backgrounds.add(background);
         }
+        Background background = new Background(filled);
+        rightBackground = background;
+        backgrounds.add(background);
     }
 
     public void update(){
         pipeCount++;
         if (pipeCount >= pipeAmount) {
             pipeCount = 0f;
-            objects.add(new Pipe());
+            pipes.add(new Pipe());
         }
-
-        draObjects();
+        drawBg();
+        drawPipes();
         drawBird();
         font.draw(batch, "Score: " + score, 20, Settings.height-20);
+    }
+
+    private void drawBg(){
+        for(Background background : backgrounds){
+            background.update(pipeSpeed);
+            draw(background.getSprite());
+            if(background.getSprite().getX()<0-background.getSprite().getWidth()){
+                background.getSprite().setX(rightBackground.getSprite().getX()+background.getSprite().getWidth()-1);
+                rightBackground = background;
+            }
+        }
     }
 
     private void drawBird(){
@@ -87,38 +113,29 @@ public class Logic {
         draw(bird.getSprite());
     }
 
-    private void draObjects(){
-        for(io.github.some_example_name.Parts.Object object : objects){
-            if(object instanceof Pipe){
+    private void drawPipes(){
+        for(Pipe pipe : pipes){
+            pipe.update(pipeSpeed);
+            draw(pipe.getSprite());
 
-                object.update(pipeSpeed);
-                draw(object.getSprite());
+            checkTouch(pipe.getSprite());
 
-                checkTouch(object.getSprite());
-
-                if(object.getSprite().getX()<0-object.getSprite().getWidth()){
-                    remove.add(object);
-                }
-
-                if(((Pipe) object).isPointCheck()&&object.getSprite().getX()<bird.getSprite().getWidth()){
-                    score++;
-                    pipeSpeed += 0.2f;
-                    pipeAmount -= pipeSpeed * 2/3;
-                    sound.play(1f);
-                    ((Pipe) object).checkPoint();
-                }
-            }else{
-                object.update(pipeSpeed);
-                draw(object.getSprite());
-
-                if(object.getSprite().getX()<0-object.getSprite().getWidth()){
-                    remove.add(object);
-                }
+            if(pipe.getSprite().getX()<0-pipe.getSprite().getWidth()){
+                remove.add(pipe);
             }
+
+            if(pipe.isPointCheck()&&pipe.getSprite().getX()<bird.getSprite().getWidth()){
+                score++;
+                pipeSpeed += 0.2f;
+                pipeAmount -= pipeSpeed * 2/3;
+                sound.play(1f);
+                pipe.checkPoint();
+            }
+
         }
 
-        for(Object object : remove){
-            objects.remove(object);
+        for(Pipe pipe : remove){
+            pipes.remove(pipe);
         }
         remove.clear();
     }

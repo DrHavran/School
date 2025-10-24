@@ -6,7 +6,7 @@ public class Main {
         Room livingRoom = new Room("living");
         Room bathroom = new Room("bathroom");
 
-        Player player = new Player(livingRoom);
+        Player player = new Player( livingRoom);
         livingRoom.addItem("potato");
 
         connectRooms(kitchen, livingRoom);

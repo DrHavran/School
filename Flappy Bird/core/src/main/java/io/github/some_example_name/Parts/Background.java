@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import io.github.some_example_name.Settings;
 
-public class Background extends Object {
+public class Background {
+
+    private final Sprite sprite;
 
     public Background() {
         Texture texture = new Texture("background.png");
@@ -19,13 +21,16 @@ public class Background extends Object {
         sprite.setPosition(x, 0);
     }
 
-    @Override
     public void update(float speed){
         sprite.setX(getX()-speed);
     }
 
     private float getX(){
         return sprite.getX();
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 
 }
