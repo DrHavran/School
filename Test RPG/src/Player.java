@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 
 public class Player {
-    private String name;
     private final ArrayList<Item> items;
     private Room currentRoom;
 
-    public Player(String name, Room curentRoom) {
-        this.name = name;
+    public Player(Room curentRoom) {
         this.currentRoom = curentRoom;
         this.items = new ArrayList<>();
     }
@@ -28,16 +26,13 @@ public class Player {
 
     public void printItems(){
         if(items.isEmpty()){
-            System.out.println("You have no items");
+            System.out.println("no items");
             return;
         }
         for(Item item : items){
-            System.out.println(item.getName());
+            System.out.print(item.getName() + ", ");
         }
-    }
-
-    public String getName() {
-        return name;
+        System.out.println();
     }
 
     public Room getCurrentRoom() {

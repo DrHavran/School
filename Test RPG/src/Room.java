@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Room {
-    private String name;
+    private final String name;
     private final ArrayList<Item> items;
     private final ArrayList<Room> rooms;
 
@@ -25,6 +25,20 @@ public class Room {
         return null;
     }
 
+    public Room checkConnection(String string){
+        if(rooms.isEmpty()){
+            System.out.println("No connections lule");
+            return null;
+        }
+        for(Room room : rooms){
+            if(room.getName().equals(string)){
+                return room;
+            }
+        }
+        System.out.println("No room found");
+        return null;
+    }
+
     public void printConnections(){
         if(rooms.isEmpty()){
             System.out.println("You are stuck lule");
@@ -43,20 +57,6 @@ public class Room {
         for(Item item : items){
             System.out.println(item.getName());
         }
-    }
-
-    public Room checkConnection(String string){
-        if(rooms.isEmpty()){
-            System.out.println("No connections lule");
-            return null;
-        }
-        for(Room room : rooms){
-            if(room.getName().equals(string)){
-                return room;
-            }
-        }
-        System.out.println("No room found");
-        return null;
     }
 
     public String getName() {

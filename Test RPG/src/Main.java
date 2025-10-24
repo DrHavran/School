@@ -6,7 +6,7 @@ public class Main {
         Room livingRoom = new Room("living");
         Room bathroom = new Room("bathroom");
 
-        Player player = new Player("player 1", livingRoom);
+        Player player = new Player(livingRoom);
         livingRoom.addItem("potato");
 
         connectRooms(kitchen, livingRoom);
@@ -19,15 +19,26 @@ public class Main {
             Room currentRoom = player.getCurrentRoom();
 
             System.out.println("You are currently in: " + currentRoom.getName());
+            System.out.println();
+
             System.out.println("You can go to: ");
             currentRoom.printConnections();
+            System.out.println();
+
             System.out.println("On the ground there is: ");
             currentRoom.printItems();
+            System.out.println();
+
             System.out.println("You currently have: ");
             player.printItems();
+            System.out.println();
+
             System.out.println("If you need help write: HELP");
+            System.out.println();
+            System.out.println("Insert command: ");
 
             String line = sc.nextLine();
+            System.out.println();
             if(line.equals("exit")) {
                 exit = true;
             }else if (line.contains("take ")) {
@@ -40,6 +51,7 @@ public class Main {
                 System.out.println("To exit the app: exit");
             }else{
                 System.out.println("Unknown command, try again");
+                System.out.println();
             }
         }
     }
