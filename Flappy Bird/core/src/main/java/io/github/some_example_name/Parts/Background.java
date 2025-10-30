@@ -8,25 +8,14 @@ public class Background {
 
     private final Sprite sprite;
 
-    public Background() {
-        Texture texture = new Texture("background.png");
-        this.sprite = new Sprite(texture);
-        sprite.setSize(texture.getWidth()*5, Settings.height);
-        sprite.setPosition(Settings.width, 0);
-    }
-    public Background(float x) {
-        Texture texture = new Texture("background.png");
+    public Background(Texture texture, float x) {
         this.sprite = new Sprite(texture);
         sprite.setSize(texture.getWidth()*5, Settings.height);
         sprite.setPosition(x, 0);
     }
 
     public void update(float speed){
-        sprite.setX(getX()-speed);
-    }
-
-    private float getX(){
-        return sprite.getX();
+        sprite.setX(sprite.getX() - speed);
     }
 
     public Sprite getSprite() {
