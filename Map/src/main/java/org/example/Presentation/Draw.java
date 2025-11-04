@@ -20,8 +20,11 @@ public class Draw {
 
         drawMap();
 
-        drawAllConnections(693323272L);
-        drawAllConnections(693323283L);
+        drawAllConnections(66973468L);
+
+        drawDot(logic.getNode(66973468L), Color.GREEN);
+        drawDot(logic.getNode(693323283L), Color.YELLOW);
+
     }
 
     private void drawAllConnections(long id){
@@ -54,6 +57,12 @@ public class Draw {
 
     private void drawDot(Node node) {
         Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize);
+        root.getChildren().add(dot);
+    }
+
+    private void drawDot(Node node, Paint color) {
+        Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize+2);
+        dot.setFill(color);
         root.getChildren().add(dot);
     }
 

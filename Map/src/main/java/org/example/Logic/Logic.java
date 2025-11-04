@@ -1,6 +1,7 @@
 package org.example.Logic;
 
 import org.example.Data.Data;
+import org.example.Logic.PathFinding.DFS;
 import org.example.Node;
 import org.example.Path;
 
@@ -9,12 +10,16 @@ import java.util.HashSet;
 import java.util.Hashtable;
 
 public class Logic {
-    Data data;
-    NodeModel model;
+    private final Data data;
+    private final NodeModel model;
+    private final DFS dfs;
 
     public Logic() {
+        this.dfs = new DFS();
         this.data = new Data();
         this.model = data.createModel();
+
+        dfs.findPath(getNode(66973468L), getNode(693323283L));
     }
 
     public Hashtable<Long, Node> getNodes() {return data.getNodes();}
@@ -52,5 +57,4 @@ public class Logic {
 
         return paths;
     }
-    public void findPath(Node start, Node end) {}
 }

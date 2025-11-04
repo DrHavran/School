@@ -22,7 +22,7 @@ public class Data {
         nodes = new Hashtable<>();
         paths = new ArrayList<>();
         loadFile();
-        loadFileDocument();
+        //loadFileDocument(); Document builder test
     }
 
     public Hashtable<Long, Node> getNodes() {
@@ -87,8 +87,6 @@ public class Data {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(new File("map.osm"));
             doc.getDocumentElement().normalize();
-
-
 
         }
         catch (Exception e){
