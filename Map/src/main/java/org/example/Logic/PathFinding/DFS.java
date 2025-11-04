@@ -1,7 +1,9 @@
 package org.example.Logic.PathFinding;
 
 import org.example.Node;
+import org.example.Path;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class DFS implements PathFinder{
@@ -10,18 +12,23 @@ public class DFS implements PathFinder{
     private final HashSet<Node> visited;
     private int steps;
 
+    private final ArrayList<Path> finalPath;
+
     public DFS() {
         this.visited = new HashSet<>();
+        this.finalPath = new ArrayList<>();
         this.steps = 0;
     }
 
     public void findPath(Node start, Node end){
         this.end = end;
-        nextStep(start, null);
+        visited.clear();
+        finalPath.clear();
+        nextStep(start);
         System.out.println(steps);
     };
 
-    private boolean nextStep(Node current, Node parent){
+    private boolean nextStep(Node current){
         steps++;
         visited.add(current);
         for(Node node : current.getPaths()){
@@ -30,16 +37,20 @@ public class DFS implements PathFinder{
                 return true;
             }
             if (!visited.contains(node)) {
-                if (nextStep(node, current)) {
+                if (nextStep(node)) {
+                    finalPath.add(new Path(current, node));
                     return true;
                 }
             }
         }
-        System.out.println("No Path");
         return false;
     }
 
     public int getSteps() {
         return steps;
+    }
+
+    public ArrayList<Path> getFinalPath() {
+        return finalPath;
     }
 }

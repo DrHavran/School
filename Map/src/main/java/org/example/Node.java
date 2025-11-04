@@ -17,10 +17,6 @@ public class Node {
         paths.add(node);
     }
 
-    public double getScore(Node end){
-        return Math.sqrt(Math.pow(longitude-end.getLongitude(), 2) + Math.pow(latitude-end.getLatitude(), 2));
-    }
-
     public double getLongitude() {
         return longitude;
     }

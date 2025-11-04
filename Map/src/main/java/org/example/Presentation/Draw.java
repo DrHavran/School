@@ -20,17 +20,10 @@ public class Draw {
 
         drawMap();
 
-        drawAllConnections(66973468L);
+        //drawAllConnections(66973468L);
 
-        drawDot(logic.getNode(66973468L), Color.GREEN);
-        drawDot(logic.getNode(693323283L), Color.YELLOW);
+        findPath(66973468L, 693323283L, "DFS");
 
-    }
-
-    private void drawAllConnections(long id){
-        for(Path path : logic.colorAllPaths(logic.getNode(id))) {
-            drawLine(path, Color.RED);
-        }
     }
 
     private void drawMap(){
@@ -39,6 +32,22 @@ public class Draw {
         }
         for(Path path : logic.getPaths()) {
             drawLine(path, Color.BLACK);
+        }
+    }
+
+    private void drawAllConnections(long id){
+        for(Path path : logic.colorAllPaths(logic.getNode(id))) {
+            drawLine(path, Color.RED);
+        }
+    }
+
+    private void findPath(long start, long end, String method){
+
+        drawDot(logic.getNode(start), Color.GREEN);
+        drawDot(logic.getNode(end), Color.BLUE);
+
+        for(Path path : logic.findPath(start, end, method)){
+            drawLine(path, Color.RED);
         }
     }
 
@@ -61,7 +70,7 @@ public class Draw {
     }
 
     private void drawDot(Node node, Paint color) {
-        Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize+2);
+        Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize+3);
         dot.setFill(color);
         root.getChildren().add(dot);
     }
