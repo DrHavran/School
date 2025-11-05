@@ -22,13 +22,14 @@ public class Draw {
 
         //drawAllConnections(66973468L);
 
-        findPath(66973468L, 693323283L, "DFS");
+        logic.switchMethod("BFS");
+        findPath(66973468L, 693323283L);
 
     }
 
     private void drawMap(){
         for(Node node : logic.getNodes().values()) {
-            drawDot(node);
+            drawNode(node);
         }
         for(Path path : logic.getPaths()) {
             drawLine(path, Color.BLACK);
@@ -41,12 +42,12 @@ public class Draw {
         }
     }
 
-    private void findPath(long start, long end, String method){
+    private void findPath(long start, long end){
 
         drawDot(logic.getNode(start), Color.GREEN);
         drawDot(logic.getNode(end), Color.BLUE);
 
-        for(Path path : logic.findPath(start, end, method)){
+        for(Path path : logic.findPath(start, end)){
             drawLine(path, Color.RED);
         }
     }
@@ -64,7 +65,7 @@ public class Draw {
         root.getChildren().add(line);
     }
 
-    private void drawDot(Node node) {
+    private void drawNode(Node node) {
         Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize);
         root.getChildren().add(dot);
     }

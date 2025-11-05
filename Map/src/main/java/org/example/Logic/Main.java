@@ -8,7 +8,7 @@ import org.example.Presentation.Draw;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {;
+    public void start(Stage primaryStage) {
         Draw draw = new Draw();
 
         Scene scene = new Scene(draw.getRoot(), Settings.screenWidth, Settings.screenHeight);

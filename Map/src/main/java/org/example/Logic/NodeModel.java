@@ -2,10 +2,10 @@ package org.example.Logic;
 
 public class NodeModel {
 
-    private double maxX = 0;
-    private double minX = Double.MAX_VALUE;
-    private double maxY = 0;
-    private double minY = Double.MAX_VALUE;
+    private final double maxX;
+    private final double minX;
+    private final double maxY;
+    private final double minY;
 
     public NodeModel(double maxX, double minX, double maxY, double minY) {
         this.maxX = maxX;

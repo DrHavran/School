@@ -9,24 +9,25 @@ import java.util.HashSet;
 public class DFS implements PathFinder{
 
     private Node end;
-    private final HashSet<Node> visited;
+    private final ArrayList<Path> finalPath;
     private int steps;
 
-    private final ArrayList<Path> finalPath;
+    private final HashSet<Node> visited;
 
     public DFS() {
         this.visited = new HashSet<>();
         this.finalPath = new ArrayList<>();
-        this.steps = 0;
     }
 
     public void findPath(Node start, Node end){
         this.end = end;
         visited.clear();
         finalPath.clear();
+        steps = 0;
+
         nextStep(start);
-        System.out.println(steps);
-    };
+        System.out.println("DFS took " + steps + " steps");
+    }
 
     private boolean nextStep(Node current){
         steps++;

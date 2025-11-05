@@ -57,17 +57,16 @@ public class Logic {
 
         return paths;
     }
-    public ArrayList<Path> findPath(long start, long end, String method) {
-        if(method.equals("DFS")){
-            this.pathFinder = new DFS();
-        }else if (method.equals("BFS")) {
-            this.pathFinder = new BFS();
-        }else if (method.equals("A*")) {
-            this.pathFinder = new AStar();
-        }else{
-            System.out.println("Invalid method");
-            return null;
+
+    public void switchMethod(String method){
+        switch (method) {
+            case "DFS" -> this.pathFinder = new DFS();
+            case "BFS" -> this.pathFinder = new BFS();
+            case "A*" -> this.pathFinder = new AStar();
+            default -> System.out.println("Invalid method");
         }
+    }
+    public ArrayList<Path> findPath(long start, long end) {
         pathFinder.findPath(getNode(start), getNode(end));
         return pathFinder.getFinalPath();
     }
