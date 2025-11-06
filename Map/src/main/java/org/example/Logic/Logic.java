@@ -14,27 +14,10 @@ import java.util.Hashtable;
 
 public class Logic {
     private final Data data;
-    private final NodeModel model;
     private PathFinder pathFinder;
 
     public Logic() {
         this.data = new Data();
-        this.model = data.createModel();
-    }
-
-    public Hashtable<Long, Node> getNodes() {return data.getNodes();}
-    public ArrayList<Path> getPaths() {
-        return data.getPaths();
-    }
-    public Node getNode(long id) {
-        return data.getNodes().get(id);
-    }
-
-    public double scaleX(double number){
-        return model.scaleX(number);
-    }
-    public double scaleY(double number){
-        return model.scaleY(number);
     }
 
     public ArrayList<Path> colorAllPaths(Node node) {
@@ -66,8 +49,24 @@ public class Logic {
             default -> System.out.println("Invalid method");
         }
     }
+
     public ArrayList<Path> findPath(long start, long end) {
         pathFinder.findPath(getNode(start), getNode(end));
         return pathFinder.getFinalPath();
+    }
+
+    public Hashtable<Long, Node> getNodes() {return data.getNodes();}
+    public ArrayList<Path> getPaths() {
+        return data.getPaths();
+    }
+    public Node getNode(long id) {
+        return data.getNodes().get(id);
+    }
+
+    public double scaleX(double number){
+        return data.scaleX(number);
+    }
+    public double scaleY(double number){
+        return data.scaleY(number);
     }
 }
