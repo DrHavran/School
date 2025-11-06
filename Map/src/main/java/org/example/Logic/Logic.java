@@ -1,10 +1,7 @@
 package org.example.Logic;
 
 import org.example.Data.Data;
-import org.example.Logic.PathFinding.AStar;
-import org.example.Logic.PathFinding.BFS;
-import org.example.Logic.PathFinding.DFS;
-import org.example.Logic.PathFinding.PathFinder;
+import org.example.Logic.PathFinding.*;
 import org.example.Node;
 import org.example.Path;
 
@@ -45,6 +42,7 @@ public class Logic {
         switch (method) {
             case "DFS" -> this.pathFinder = new DFS();
             case "BFS" -> this.pathFinder = new BFS();
+            case "DSA" -> this.pathFinder = new DSA();
             case "A*" -> this.pathFinder = new AStar();
             default -> System.out.println("Invalid method");
         }
