@@ -22,9 +22,8 @@ public class Draw {
 
         //drawAllConnections(66973468L);
 
-        logic.switchMethod("BFS");
+        logic.switchMethod("DSA");
         findPath(66973468L, 693323283L);
-
     }
 
     private void drawMap(){

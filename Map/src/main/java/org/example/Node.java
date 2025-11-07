@@ -14,6 +14,8 @@ public class Node {
         this.longitude = longitude;
         this.latitude = latitude;
         this.paths = new ArrayList<>();
+        this.parent = null;
+        this.value = Double.MAX_VALUE;
     }
 
     public void addNode(Node node) {

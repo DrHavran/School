@@ -26,7 +26,6 @@ public class DFS implements PathFinder{
         steps = 0;
 
         nextStep(start);
-        System.out.println("DFS took " + steps + " steps");
     }
 
     private boolean nextStep(Node current){
@@ -35,6 +34,7 @@ public class DFS implements PathFinder{
         for(Node node : current.getPaths()){
             if(node == end){
                 System.out.println("found end");
+                System.out.println("DFS took " + steps + " steps");
                 return true;
             }
             if (!visited.contains(node)) {

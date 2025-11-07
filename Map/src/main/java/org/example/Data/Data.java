@@ -20,6 +20,7 @@ public class Data {
         nodes = new Hashtable<>();
         paths = new ArrayList<>();
         loadFile();
+        System.out.println("Loaded " + nodes.size() + " nodes");
     }
 
     public Hashtable<Long, Node> getNodes() {

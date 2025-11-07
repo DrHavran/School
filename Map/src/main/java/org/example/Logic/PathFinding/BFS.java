@@ -26,6 +26,7 @@ public class BFS implements PathFinder {
 
         queue.add(start);
         visited.add(start);
+        start.setParent(null);
 
         while (!queue.isEmpty()) {
             Node selected = queue.removeFirst();
@@ -35,23 +36,22 @@ public class BFS implements PathFinder {
                     node.setParent(selected);
                     visited.add(node);
                     if(node.equals(end)){
-                        createPath(node, end);
-                        break;
+                        createPath(node);
+                        System.out.println("Found end");
+                        System.out.println("BFS took " + steps + " steps");
+                        return;
                     } else {
                         queue.add(node);
                     }
                 }
             }
         }
-        System.out.println("Found end");
-        System.out.println("BFS took " + steps + " steps");
+        System.out.println("Didnt find a path");
     }
 
-    private void createPath(Node node, Node end) {
+    private void createPath(Node node) {
 
         Node selected = node;
-
-        finalPath.add(new Path(selected, end));
 
         while(selected.getParent() != null){
             finalPath.add(new Path(selected, selected.getParent()));
