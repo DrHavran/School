@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
-public class Room {
+public class Modul {
     private final String name;
     private final ArrayList<Item> items;
-    private final ArrayList<Room> rooms;
+    private final ArrayList<Modul> moduls;
 
-    public Room(String name) {
+    public Modul(String name) {
         this.name = name;
         this.items = new ArrayList<>();
-        this.rooms = new ArrayList<>();
+        this.moduls = new ArrayList<>();
     }
 
     public Item checkForItem(String name){
@@ -25,12 +25,12 @@ public class Room {
         return null;
     }
 
-    public Room checkConnection(String string){
-        if(rooms.isEmpty()){
+    public Modul checkConnection(String string){
+        if(moduls.isEmpty()){
             System.out.println("No connections lule");
             return null;
         }
-        for(Room room : rooms){
+        for(Modul room : moduls){
             if(room.getName().equals(string)){
                 return room;
             }
@@ -40,11 +40,11 @@ public class Room {
     }
 
     public void printConnections(){
-        if(rooms.isEmpty()){
+        if(moduls.isEmpty()){
             System.out.println("You are stuck lule");
             return;
         }
-        for(Room room : rooms){
+        for(Modul room : moduls){
             System.out.println(room.getName());
         }
     }
@@ -71,7 +71,7 @@ public class Room {
         items.add(new Item(name));
     }
 
-    public void addRoom(Room room){
-        rooms.add(room);
+    public void addModul(Modul room){
+        moduls.add(room);
     }
 }

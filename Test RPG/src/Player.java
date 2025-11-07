@@ -2,25 +2,25 @@ import java.util.ArrayList;
 
 public class Player {
     private final ArrayList<Item> items;
-    private Room currentRoom;
+    private Modul currentModul;
 
-    public Player(Room curentRoom) {
-        this.currentRoom = curentRoom;
+    public Player(Modul currentRoom) {
+        this.currentModul = currentRoom;
         this.items = new ArrayList<>();
     }
 
     public void takeItem(String string){
-        Item item = currentRoom.checkForItem(string);
+        Item item = currentModul.checkForItem(string);
         if(item != null){
             items.add(item);
-            currentRoom.removeItem(item);
+            currentModul.removeItem(item);
         }
     }
 
     public void goTo(String string){
-        Room room = currentRoom.checkConnection(string);
+        Modul room = currentModul.checkConnection(string);
         if(room != null){
-            currentRoom = room;
+            currentModul = room;
         }
     }
 
@@ -35,7 +35,7 @@ public class Player {
         System.out.println();
     }
 
-    public Room getCurrentRoom() {
-        return currentRoom;
+    public Modul getCurrentModul() {
+        return currentModul;
     }
 }

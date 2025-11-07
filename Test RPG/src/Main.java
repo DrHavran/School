@@ -2,31 +2,31 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Room kitchen = new Room("kitchen");
-        Room livingRoom = new Room("living");
-        Room bathroom = new Room("bathroom");
+        Modul reactor = new Modul("reactor");
+        Modul storage = new Modul("storage");
+        Modul dock = new Modul("dock");
 
-        Player player = new Player( livingRoom);
-        livingRoom.addItem("potato");
+        Player player = new Player( storage);
+        storage.addItem("key");
 
-        connectRooms(kitchen, livingRoom);
-        connectRooms(bathroom, livingRoom);
+        connectRooms(reactor, storage);
+        connectRooms(dock, storage);
 
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
 
         while (!exit) {
-            Room currentRoom = player.getCurrentRoom();
+            Modul currentModul = player.getCurrentModul();
 
-            System.out.println("You are currently in: " + currentRoom.getName());
+            System.out.println("You are currently in: " + currentModul.getName());
             System.out.println();
 
             System.out.println("You can go to: ");
-            currentRoom.printConnections();
+            currentModul.printConnections();
             System.out.println();
 
             System.out.println("On the ground there is: ");
-            currentRoom.printItems();
+            currentModul.printItems();
             System.out.println();
 
             System.out.println("You currently have: ");
@@ -46,7 +46,7 @@ public class Main {
             }else if (line.contains("go to ")){
                 player.goTo(line.split(" ")[2]);
             }else if (line.equals("HELP")) {
-                System.out.println("To go to a different room: go to <room>");
+                System.out.println("To go to a different modul: go to <room>");
                 System.out.println("To pick up an item: take <item>");
                 System.out.println("To exit the app: exit");
             }else{
@@ -55,8 +55,8 @@ public class Main {
             }
         }
     }
-    public static void connectRooms(Room one, Room two) {
-        one.addRoom(two);
-        two.addRoom(one);
+    public static void connectRooms(Modul one, Modul two) {
+        one.addModul(two);
+        two.addModul(one);
     }
 }
