@@ -1,0 +1,21 @@
+#list {
+    border: gray 1px solid;
+    border-radius: 2px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column-reverse;
+}
+#task{
+    width: 500px;
+    display: flex;  
+    justify-content: space-between;
+    border: gainsboro 1px dashed;
+    padding: 5px;
+}
+#task > button{
+    width: 50px;
+    background-image: url(https://mfcfoundation.co.uk/wp-content/uploads/2017/06/RED-CROSS-300x300.png);
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
