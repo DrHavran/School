@@ -5,6 +5,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import org.example.Logic.Logic;
 import org.example.Node;
 import org.example.Path;
@@ -22,8 +25,10 @@ public class Draw {
 
         //drawAllConnections(66973468L);
 
-        logic.switchMethod("DSA");
+        logic.switchMethod("A*");
         findPath(66973468L, 693323283L);
+
+        drawScore();
     }
 
     private void drawMap(){
@@ -39,6 +44,17 @@ public class Draw {
         for(Path path : logic.colorAllPaths(logic.getNode(id))) {
             drawLine(path, Color.RED);
         }
+    }
+    
+    private void drawScore(){
+        Text text = new Text(10, 20, logic.getScore());
+        text.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        text.setFill(Color.RED);
+
+        text.setStroke(Color.BLACK);
+        text.setStrokeWidth(1);
+
+        root.getChildren().add(text);
     }
 
     private void findPath(long start, long end){

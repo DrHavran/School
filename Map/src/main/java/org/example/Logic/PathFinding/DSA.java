@@ -29,7 +29,8 @@ public class DSA implements PathFinder {
         visited.add(start);
 
         while(!queue.isEmpty()){
-            Node selected = popSmallest();
+            Node selected = findSmallest(queue);
+            queue.remove(selected);
             for(Node node : selected.getPaths()){
                 if(node == end){
                     System.out.println("found end");
@@ -54,7 +55,7 @@ public class DSA implements PathFinder {
         Node selected = node;
 
         while(selected.getValue() != 0){
-            Node next = findSmallest(selected);
+            Node next = findSmallest(selected.getPaths());
             finalPath.add(new Path(selected, next));
             selected = next;
         }
@@ -66,28 +67,15 @@ public class DSA implements PathFinder {
         return Math.sqrt(Math.pow(lon, 2) + Math.pow(lan, 2));
     }
 
-    private Node findSmallest(Node node){
-        double min = node.getValue();
-        Node minNode = node;
-        for(Node next : node.getPaths()){
+    private Node findSmallest(ArrayList<Node> list){
+        Node minNode = list.getFirst();
+        double min = minNode.getValue();
+        for(Node next : list){
             if(next.getValue() < min){
                 min = next.getValue();
                 minNode = next;
             }
         }
-        return minNode;
-    }
-
-    private Node popSmallest(){
-        double min = queue.getFirst().getValue();
-        Node minNode = queue.getFirst();
-        for(Node node : queue){
-            if(node.getValue() < min){
-                min = node.getValue();
-                minNode = node;
-            }
-        }
-        queue.remove(minNode);
         return minNode;
     }
 

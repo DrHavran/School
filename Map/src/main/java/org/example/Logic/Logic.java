@@ -67,4 +67,8 @@ public class Logic {
     public double scaleY(double number){
         return data.scaleY(number);
     }
+    public String getScore(){
+        String method = pathFinder.getClass().getSimpleName();
+        return method + " took " + pathFinder.getSteps() + " steps";
+    }
 }

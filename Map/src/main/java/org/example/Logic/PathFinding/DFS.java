@@ -50,7 +50,6 @@ public class DFS implements PathFinder{
     public int getSteps() {
         return steps;
     }
-
     public ArrayList<Path> getFinalPath() {
         return finalPath;
     }
