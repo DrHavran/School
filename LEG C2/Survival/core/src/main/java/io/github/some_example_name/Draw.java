@@ -33,7 +33,7 @@ public class Draw {
             sprite.getWidth(), sprite.getHeight(),
             entity.getFrame()*frameWidth, 0,
             frameWidth, texture.getHeight(),
-            entity.isFlipped(), false
+            false, false
         );
     }
 

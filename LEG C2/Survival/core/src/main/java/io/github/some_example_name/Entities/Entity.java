@@ -14,17 +14,20 @@ public class Entity {
 
     protected Sprite sprite;
     protected String animation;
+    protected String type;
     protected int size;
-    protected boolean flipped;
+    protected String rotation;
+
+    protected int speed;
 
     public Entity(){
         this.animations = new HashMap<>();
         this.sprite = new Sprite();
 
-        this.flipped = false;
-
+        this.speed = 0;
         this.frame = 0;
         this.frameTimer = 0;
+        this.rotation = "down";
     }
 
     public void update(){}
@@ -40,6 +43,14 @@ public class Entity {
         }
     }
 
+    protected void changeAnimation(String string) {
+        animation = string;
+        //System.out.println("current animation " + animation);
+        String type = string.split("_")[1];
+        frameCount = animations.get(type).get("frames");
+        frameTimerMax = animations.get(type).get("speed");
+    }
+
     public Sprite getSprite() {
         return sprite;
     }
@@ -49,10 +60,8 @@ public class Entity {
     public String getAnimation() {
         return animation;
     }
-    public boolean isFlipped() {
-        return flipped;
-    }
     public int getFrameCount(){
         return frameCount;
     }
+    public String getRotation() { return rotation; }
 }
