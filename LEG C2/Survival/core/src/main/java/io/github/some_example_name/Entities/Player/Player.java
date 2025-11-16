@@ -75,7 +75,7 @@ public class Player extends Entity {
             frameTimer = 0;
             changeAnimation(type + "_punch_" + rotation);
             if(rotation.equals("right")||rotation.equals("left")){
-                sprite.setSize((float) (size*1.5), size);
+                sprite.setSize((float) (size*1.6d), size);
             }else {
                 sprite.setSize(size, size);
             }

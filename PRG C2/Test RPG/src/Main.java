@@ -6,16 +6,16 @@ public class Main {
         Modul storage = new Modul("storage");
         Modul dock = new Modul("dock");
 
-        Player player = new Player( storage);
+        Player player = new Player(storage);
         storage.addItem("key");
 
         connectRooms(reactor, storage);
         connectRooms(dock, storage);
 
         Scanner sc = new Scanner(System.in);
-        boolean exit = false;
+        String line;
 
-        while (!exit) {
+        do{
             Modul currentModul = player.getCurrentModul();
 
             System.out.println("You are currently in: " + currentModul.getName());
@@ -37,11 +37,9 @@ public class Main {
             System.out.println();
             System.out.println("Insert command: ");
 
-            String line = sc.nextLine();
+            line = sc.nextLine();
             System.out.println();
-            if(line.equals("exit")) {
-                exit = true;
-            }else if (line.contains("take ")) {
+            if (line.contains("take ")) {
                 player.takeItem(line.split(" ")[1]);
             }else if (line.contains("go to ")){
                 player.goTo(line.split(" ")[2]);
@@ -50,10 +48,12 @@ public class Main {
                 System.out.println("To pick up an item: take <item>");
                 System.out.println("To exit the app: exit");
             }else{
-                System.out.println("Unknown command, try again");
-                System.out.println();
+                if(!line.equals("exit")){
+                    System.out.println("Unknown command, try again");
+                    System.out.println();
+                }
             }
-        }
+        }while(!line.equals("exit"));
     }
     public static void connectRooms(Modul one, Modul two) {
         one.addModul(two);
