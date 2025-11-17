@@ -1,54 +1,53 @@
 package io.github.some_example_name.Entities.Monster;
 
+import com.badlogic.gdx.Gdx;
 import io.github.some_example_name.Entities.Entity;
-import io.github.some_example_name.Entities.Player.Player;
 import io.github.some_example_name.Settings;
 
 public class Zombie extends Entity {
-    private final Player player;
 
-    public Zombie(Player player) {
+    public Zombie() {
         super();
-        this.player = player;
     }
 
     protected void move(){
         moveToPlayer();
+        checkPlayer();
     }
 
     private void moveToPlayer() {
-        float x = player.getSprite().getX() - sprite.getX();
-        float y = player.getSprite().getY() - sprite.getY();
+        float x = eM.playerX() - sprite.getX();
+        float y = eM.playerY() - sprite.getY();
 
         float length = (float) Math.sqrt(x * x + y * y);
 
-        float normalizeX = (x / length) * speed;
-        float normalizeY = (y / length) * speed;
+        float normalizeX = (x / length);
+        float normalizeY = (y / length);
 
-        sprite.setPosition(sprite.getX() + normalizeX, sprite.getY() + normalizeY);
-
-        if (normalizeX < 0) {
-            changeAnimation(type + "_walk_left");
-        } else if (normalizeX > 0) {
-            changeAnimation(type + "_walk_right");
-        } else if (normalizeY < 0) {
-            changeAnimation(type + "_walk_up");
-        } else if (normalizeY > 0) {
-            changeAnimation(type + "_walk_down");
-        }
+        sprite.setPosition(sprite.getX() + normalizeX * speed, sprite.getY() + normalizeY * speed);
 
         if (Math.abs(normalizeX) > Math.abs(normalizeY)) {
             if (normalizeX < 0) {
-                changeAnimation(type + "_walk_left");
+                rotation = "left";
+                changeAnimation("walk");
             } else {
-                changeAnimation(type + "_walk_right");
+                rotation = "right";
+                changeAnimation("walk");
             }
         }else {
             if (normalizeY < 0) {
-                changeAnimation(type + "_walk_down");
+                rotation = "down";
+                changeAnimation("walk");
             }else {
-                changeAnimation(type + "_walk_up");
+                rotation = "up";
+                changeAnimation("walk");
             }
+        }
+    }
+
+    private void checkPlayer(){
+        if(!Settings.safeMode && sprite.getBoundingRectangle().overlaps(eM.getPlayer().getSprite().getBoundingRectangle())){
+            Gdx.app.exit();
         }
     }
 

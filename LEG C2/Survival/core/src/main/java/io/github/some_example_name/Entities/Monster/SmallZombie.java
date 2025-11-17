@@ -1,13 +1,11 @@
 package io.github.some_example_name.Entities.Monster;
 
-import io.github.some_example_name.Entities.Player.Player;
-
 import java.util.HashMap;
 
 public class SmallZombie extends Zombie {
 
-    public SmallZombie(Player player) {
-        super(player);
+    public SmallZombie() {
+        super();
         speed = 5;
         size = 60;
 
@@ -27,7 +25,7 @@ public class SmallZombie extends Zombie {
     private void loadAnimations() {
         HashMap<String, Integer> idle = new HashMap<>();
         idle.put("frames", 6);
-        idle.put("speed", 7);
+        idle.put("speed", 6);
 
         HashMap<String, Integer> walk = new HashMap<>();
         walk.put("frames", 6);

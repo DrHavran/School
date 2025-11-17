@@ -27,14 +27,14 @@ public class Draw {
         Sprite sprite = entity.getSprite();
         Texture texture = logic.getTexture(entity.getAnimation());
         int frameWidth = texture.getWidth() / entity.getFrameCount();
-        batch.draw(
-            texture,
-            sprite.getX(), sprite.getY(),
-            sprite.getWidth(), sprite.getHeight(),
-            entity.getFrame()*frameWidth, 0,
-            frameWidth, texture.getHeight(),
-            false, false
+
+        sprite.setTexture(texture);
+        sprite.setRegion(
+            frameWidth * entity.getFrame(), 0,
+            frameWidth, texture.getHeight()
         );
+
+        sprite.draw(batch);
     }
 
     public void begin() {

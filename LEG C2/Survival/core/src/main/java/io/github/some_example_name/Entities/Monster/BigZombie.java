@@ -1,13 +1,11 @@
 package io.github.some_example_name.Entities.Monster;
 
-import io.github.some_example_name.Entities.Player.Player;
-
 import java.util.HashMap;
 
 public class BigZombie extends Zombie {
 
-    public BigZombie(Player player) {
-        super(player);
+    public BigZombie() {
+        super();
         speed = 1;
         size = 80;
 
