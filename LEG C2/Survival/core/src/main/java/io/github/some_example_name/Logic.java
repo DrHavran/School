@@ -44,4 +44,7 @@ public class Logic {
     public ArrayList<Entity> getEntities() {
         return eM.getEntities();
     }
+    public Entity[] getMainEntities() {
+        return eM.getMainEntities();
+    }
 }

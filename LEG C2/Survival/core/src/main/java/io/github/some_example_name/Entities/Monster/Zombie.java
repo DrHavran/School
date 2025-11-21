@@ -1,16 +1,25 @@
 package io.github.some_example_name.Entities.Monster;
 
-import com.badlogic.gdx.Gdx;
 import io.github.some_example_name.Entities.Entity;
 import io.github.some_example_name.Settings;
 
 public class Zombie extends Entity {
 
+    protected int damageDelay;
+    protected int damageCount;
+
     public Zombie() {
         super();
+        damageDelay = 200;
+        damageCount = 0;
     }
 
-    protected void move(){
+    @Override
+    public void update(){
+        if(damageCount < damageDelay){
+            damageCount++;
+        }
+        updateFrame();
         moveToPlayer();
         checkPlayer();
     }
@@ -46,8 +55,9 @@ public class Zombie extends Entity {
     }
 
     private void checkPlayer(){
-        if(!Settings.safeMode && sprite.getBoundingRectangle().overlaps(eM.getPlayer().getSprite().getBoundingRectangle())){
-            Gdx.app.exit();
+        if(!Settings.safeMode && bounds().overlaps(eM.getPlayer().bounds()) && damageCount == damageDelay){
+            eM.getPlayer().damage(damage);
+            damageCount = 0;
         }
     }
 

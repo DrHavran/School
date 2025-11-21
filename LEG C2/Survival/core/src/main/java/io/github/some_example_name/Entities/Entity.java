@@ -2,6 +2,7 @@ package io.github.some_example_name.Entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import io.github.some_example_name.Managers.EntityManager;
 
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public class Entity {
     protected int size;
 
     protected int speed;
+    protected int health;
+    protected int damage;
 
     public Entity(){
         this.animations = new HashMap<>();
@@ -72,6 +75,9 @@ public class Entity {
     }
     public int getFrame() {
         return frame;
+    }
+    public Rectangle bounds(){
+        return sprite.getBoundingRectangle();
     }
     public String getAnimation() {
         return animation;

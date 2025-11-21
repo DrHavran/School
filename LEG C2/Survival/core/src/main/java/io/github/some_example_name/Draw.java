@@ -18,7 +18,10 @@ public class Draw {
     public void update(){
         logic.update();
 
-        for(Entity entity : logic.getEntities()){
+        for(Entity entity : logic.getEntities()){ //draw everything
+            draw(entity);
+        }
+        for(Entity entity : logic.getMainEntities()){ //draw player and gun
             draw(entity);
         }
     }
@@ -40,11 +43,9 @@ public class Draw {
     public void begin() {
         batch.begin();
     }
-
     public void end() {
         batch.end();
     }
-
     public void dispose() {
         batch.dispose();
     }

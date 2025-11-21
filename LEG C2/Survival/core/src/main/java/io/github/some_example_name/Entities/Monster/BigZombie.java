@@ -8,18 +8,13 @@ public class BigZombie extends Zombie {
         super();
         speed = 1;
         size = 80;
+        damage = 30;
 
         loadAnimations();
         type = "bigZombie";
 
         sprite.setSize(size, size);
         spawnOnEdge();
-    }
-
-    @Override
-    public void update() {
-        updateFrame();
-        move();
     }
 
     private void loadAnimations() {

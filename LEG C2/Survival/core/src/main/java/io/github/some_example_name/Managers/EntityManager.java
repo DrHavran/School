@@ -32,20 +32,12 @@ public class EntityManager {
         this.player = new Player();
         this.weapon = new Gun();
 
-        entities.add(player);
-        entities.add(weapon);
         entities.add(new SmallZombie());
     }
 
     public void update(){
-        if(player.getRotation().equals("up")&&entities.indexOf(player) == 0){ //switch gun and player
-            entities.set(0, entities.get(1));
-            entities.set(1, player);
-        }else if(!player.getRotation().equals("up") && entities.indexOf(player) == 1){
-            entities.set(1, entities.get(0));
-            entities.set(0, player);
-        }
-
+        player.update();
+        weapon.update();
         for(Entity entity : entities){
             entity.update();
         }
@@ -74,6 +66,18 @@ public class EntityManager {
 
     public ArrayList<Entity> getEntities() {
         return entities;
+    }   //getters
+    public Entity[] getMainEntities() {
+        Entity[] mainEntities = new Entity[2];
+        if(player.getRotation().equals("up")){
+            mainEntities[0] = weapon;
+            mainEntities[1] = player;
+        }else{
+            mainEntities[0] = player;
+            mainEntities[1] = weapon;
+        }
+
+        return mainEntities;
     }
     public Player getPlayer() {
         return player;

@@ -12,10 +12,10 @@ public class Player extends Entity {
         super();
         size = 60;
         speed = 5;
+        health = 100;
 
         loadAnimations();
         type = "player";
-        rotation = "down";
         changeAnimation("idle");
 
         sprite.setSize((float) (size*0.8), size);
@@ -24,6 +24,10 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        if(health <= 0){
+            Gdx.app.exit();
+        }
+
         updateFrame();
         checkInputs();
     }
@@ -91,6 +95,9 @@ public class Player extends Entity {
         animations.put("idle", idle);
     }
 
+    public void damage(int hit) {
+        health -= hit;
+    }
     public String getRotation(){
         return rotation;
     }
