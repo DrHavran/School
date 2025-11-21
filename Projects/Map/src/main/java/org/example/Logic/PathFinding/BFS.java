@@ -5,7 +5,7 @@ import org.example.Path;
 
 import java.util.ArrayList;
 
-public class BFS implements PathFinder {
+public class BFS implements PathFinderOld {
     private final ArrayList<Path> finalPath;
     private int steps;
 

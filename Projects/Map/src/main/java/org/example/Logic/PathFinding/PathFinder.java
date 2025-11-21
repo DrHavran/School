@@ -5,8 +5,23 @@ import org.example.Path;
 
 import java.util.ArrayList;
 
-public interface PathFinder {
-    void findPath(Node start, Node end);
-    ArrayList<Path> getFinalPath();
-    int getSteps();
+public class PathFinder {
+    protected final ArrayList<Path> finalPath;
+    protected int steps;
+
+    protected final ArrayList<Node> visited;
+    protected final ArrayList<Node> queue;
+
+    public PathFinder() {
+        this.finalPath = new ArrayList<>();
+        this.visited = new ArrayList<>();
+        this.queue = new ArrayList<>();
+        this.steps = 0;
+    }
+
+    public int getSteps(){
+        return this.steps;
+    }
+    
+
 }

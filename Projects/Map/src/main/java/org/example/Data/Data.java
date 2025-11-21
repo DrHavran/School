@@ -16,10 +16,10 @@ public class Data {
     ArrayList<Path> paths;
     NodeModel model;
 
-    public Data() {
+    public Data(String fileLink) {
         nodes = new Hashtable<>();
         paths = new ArrayList<>();
-        loadFile();
+        loadFile(fileLink);
         System.out.println("Loaded " + nodes.size() + " nodes");
     }
 
@@ -30,11 +30,11 @@ public class Data {
         return paths;
     }
 
-    private void loadFile(){
+    private void loadFile(String fileLink){
         try{
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader reader = factory.createXMLStreamReader(
-                    new FileInputStream("map.osm")
+                    new FileInputStream("Maps/" + fileLink + ".osm")
             );
 
             while(reader.hasNext()){

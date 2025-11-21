@@ -5,7 +5,7 @@ import org.example.Path;
 
 import java.util.ArrayList;
 
-public class AStar implements PathFinder {
+public class AStar implements PathFinderOld {
     private final ArrayList<Path> finalPath;
     private int steps;
 

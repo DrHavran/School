@@ -19,14 +19,15 @@ public class Draw {
 
     public Draw() {
         this.root = new Pane();
-        this.logic = new Logic();
+        this.logic = new Logic("Street");
 
         drawMap();
 
-        //drawAllConnections(66973468L);
 
         logic.switchMethod("A*");
-        findPath(66973468L, 693323283L);
+        //findPath(66973468L, 693323283L); //(Street)
+        //drawAllConnections(66973468L);    //(Street)
+        //findCenter(66973468L);
 
         drawScore();
     }
@@ -41,9 +42,16 @@ public class Draw {
     }
 
     private void drawAllConnections(long id){
-        for(Path path : logic.colorAllPaths(logic.getNode(id))) {
+        int count = 0;
+        for(Path path : logic.colorAllPaths(id)) {
+            count++;
             drawLine(path, Color.RED);
         }
+        System.out.println("Drew " + count + " nodes");
+    }
+
+    private void findCenter(long id){
+        Node node = logic.findCenter(id);
     }
     
     private void drawScore(){

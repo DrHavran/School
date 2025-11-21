@@ -5,7 +5,7 @@ import org.example.Path;
 
 import java.util.ArrayList;
 
-public class DSA implements PathFinder {
+public class DSA implements PathFinderOld {
     private final ArrayList<Path> finalPath;
     private int steps;
 

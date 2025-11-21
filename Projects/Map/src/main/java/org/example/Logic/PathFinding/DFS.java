@@ -6,7 +6,7 @@ import org.example.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class DFS implements PathFinder{
+public class DFS implements PathFinderOld {
 
     private Node end;
     private final ArrayList<Path> finalPath;
