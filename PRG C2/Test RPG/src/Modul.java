@@ -11,6 +11,11 @@ public class Modul {
         this.moduls = new ArrayList<>();
     }
 
+    public void connectModul(Modul modul){
+        moduls.add(modul);
+        modul.addModul(this);
+    }
+
     public Item checkForItem(String name){
         if(items.isEmpty()){
             System.out.println("No items in room");

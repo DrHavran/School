@@ -9,8 +9,8 @@ public class Main {
         Player player = new Player(storage);
         storage.addItem("key");
 
-        connectRooms(reactor, storage);
-        connectRooms(dock, storage);
+        reactor.connectModul(storage);
+        dock.connectModul(storage);
 
         Scanner sc = new Scanner(System.in);
         String line;
@@ -54,9 +54,5 @@ public class Main {
                 }
             }
         }while(!line.equals("exit"));
-    }
-    public static void connectRooms(Modul one, Modul two) {
-        one.addModul(two);
-        two.addModul(one);
     }
 }

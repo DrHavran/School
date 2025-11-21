@@ -34,7 +34,7 @@ public class EntityManager {
 
         entities.add(player);
         entities.add(weapon);
-        //entities.add(new SmallZombie());
+        entities.add(new SmallZombie());
     }
 
     public void update(){
