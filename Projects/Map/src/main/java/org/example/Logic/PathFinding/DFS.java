@@ -3,20 +3,12 @@ package org.example.Logic.PathFinding;
 import org.example.Node;
 import org.example.Path;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-public class DFS implements PathFinderOld {
+public class DFS extends PathFinder {
 
     private Node end;
-    private final ArrayList<Path> finalPath;
-    private int steps;
-
-    private final HashSet<Node> visited;
 
     public DFS() {
-        this.visited = new HashSet<>();
-        this.finalPath = new ArrayList<>();
+        super();
     }
 
     public void findPath(Node start, Node end){
@@ -45,12 +37,5 @@ public class DFS implements PathFinderOld {
             }
         }
         return false;
-    }
-
-    public int getSteps() {
-        return steps;
-    }
-    public ArrayList<Path> getFinalPath() {
-        return finalPath;
     }
 }

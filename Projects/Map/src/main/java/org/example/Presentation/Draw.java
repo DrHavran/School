@@ -23,13 +23,24 @@ public class Draw {
 
         drawMap();
 
-
         logic.switchMethod("A*");
-        //findPath(66973468L, 693323283L); //(Street)
-        //drawAllConnections(66973468L);    //(Street)
+        //findPath(66973468L, 693323283L);
+        drawAllConnections(66973468L);
         //findCenter(66973468L);
 
         drawScore();
+    }
+
+    private void findCenter(long id){
+        drawDot(logic.findCenter(id), Color.INDIANRED);
+    }
+    private void findPath(long start, long end){
+        drawDot(logic.getNode(start), Color.GREEN);
+        drawDot(logic.getNode(end), Color.BLUE);
+
+        for(Path path : logic.findPath(start, end)){
+            drawLine(path, Color.RED);
+        }
     }
 
     private void drawMap(){
@@ -40,20 +51,14 @@ public class Draw {
             drawLine(path, Color.BLACK);
         }
     }
-
     private void drawAllConnections(long id){
         int count = 0;
         for(Path path : logic.colorAllPaths(id)) {
             count++;
             drawLine(path, Color.RED);
         }
-        System.out.println("Drew " + count + " nodes");
+        System.out.println("There are " + count + " nodes in section");
     }
-
-    private void findCenter(long id){
-        Node node = logic.findCenter(id);
-    }
-    
     private void drawScore(){
         Text text = new Text(10, 20, logic.getScore());
         text.setFont(Font.font("Arial", FontWeight.BOLD, 15));
@@ -63,16 +68,6 @@ public class Draw {
         text.setStrokeWidth(1);
 
         root.getChildren().add(text);
-    }
-
-    private void findPath(long start, long end){
-
-        drawDot(logic.getNode(start), Color.GREEN);
-        drawDot(logic.getNode(end), Color.BLUE);
-
-        for(Path path : logic.findPath(start, end)){
-            drawLine(path, Color.RED);
-        }
     }
 
     private void drawLine(Path path, Paint color) {
@@ -87,12 +82,10 @@ public class Draw {
         line.setStroke(color);
         root.getChildren().add(line);
     }
-
     private void drawNode(Node node) {
         Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize);
         root.getChildren().add(dot);
     }
-
     private void drawDot(Node node, Paint color) {
         Circle dot = new Circle(logic.scaleX(node.getLongitude()), logic.scaleY(node.getLatitude()), Settings.dotSize+3);
         dot.setFill(color);

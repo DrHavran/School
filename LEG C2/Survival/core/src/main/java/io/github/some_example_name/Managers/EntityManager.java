@@ -32,7 +32,7 @@ public class EntityManager {
         this.player = new Player();
         this.weapon = new Gun();
 
-        entities.add(new SmallZombie());
+        //entities.add(new SmallZombie());
     }
 
     public void update(){

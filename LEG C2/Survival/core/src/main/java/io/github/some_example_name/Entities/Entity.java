@@ -52,7 +52,7 @@ public class Entity {
     }
 
     protected void changeAnimation(String string) {
-        animation = type + "_" + string + "_" + rotation;
+        animation = type + "_" + string + "_";
         //System.out.println("current animation " + animation);
         if(!animations.isEmpty()){
             frameCount = animations.get(string).get("frames");
@@ -84,5 +84,8 @@ public class Entity {
     }
     public int getFrameCount(){
         return frameCount;
+    }
+    public String getRotation(){
+        return rotation;
     }
 }

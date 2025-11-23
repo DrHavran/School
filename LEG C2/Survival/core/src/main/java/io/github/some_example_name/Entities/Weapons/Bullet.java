@@ -1,5 +1,6 @@
 package io.github.some_example_name.Entities.Weapons;
 
+import com.badlogic.gdx.Gdx;
 import io.github.some_example_name.Entities.Entity;
 import io.github.some_example_name.Entities.Monster.Zombie;
 
@@ -15,13 +16,30 @@ public class Bullet extends Entity {
         changeAnimation("idle");
         speed = 5;
 
-        sprite.setSize(10, 5);
-        sprite.setRotation(angle);
-        sprite.setPosition(eM.weaponX() + eM.weaponWidth(), eM.weaponY() + eM.weaponHeight() / 2);
 
         float radian = (float) Math.toRadians(angle + 180);
-        this.x = (float) Math.cos(radian) * speed;
-        this.y = (float) Math.sin(radian) * speed;
+
+        double normX = Math.cos(radian);
+        double normY = Math.sin(radian);
+
+        this.x = (float) normX * speed;
+        this.y = (float) normY * speed;
+
+        sprite.setSize(10, 5);
+        sprite.setRotation(angle);
+
+        System.out.println(eM.weaponX());
+        float x = Gdx.input.getX();
+        float y = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+        System.out.println(x + " " + y);
+        System.out.println(angle);
+
+
+        sprite.setPosition(
+            (float) (eM.weaponX() + eM.weaponWidth() + normX * eM.weaponWidth()),
+            eM.weaponY()
+        );
     }
 
     @Override

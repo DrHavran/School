@@ -12,22 +12,15 @@ import java.util.Hashtable;
 
 public class Data {
 
-    Hashtable<Long, Node> nodes;
-    ArrayList<Path> paths;
-    NodeModel model;
+    private final Hashtable<Long, Node> nodes;
+    private final ArrayList<Path> paths;
+    private NodeModel model;
 
     public Data(String fileLink) {
         nodes = new Hashtable<>();
         paths = new ArrayList<>();
         loadFile(fileLink);
         System.out.println("Loaded " + nodes.size() + " nodes");
-    }
-
-    public Hashtable<Long, Node> getNodes() {
-        return nodes;
-    }
-    public ArrayList<Path> getPaths() {
-        return paths;
     }
 
     private void loadFile(String fileLink){
@@ -93,6 +86,13 @@ public class Data {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public Hashtable<Long, Node> getNodes() {
+        return nodes;
+    }
+    public ArrayList<Path> getPaths() {
+        return paths;
     }
 
     public double scaleX(Double number){

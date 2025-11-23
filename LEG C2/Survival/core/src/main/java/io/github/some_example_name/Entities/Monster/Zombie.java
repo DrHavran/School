@@ -19,6 +19,7 @@ public class Zombie extends Entity {
         if(damageCount < damageDelay){
             damageCount++;
         }
+
         updateFrame();
         moveToPlayer();
         checkPlayer();

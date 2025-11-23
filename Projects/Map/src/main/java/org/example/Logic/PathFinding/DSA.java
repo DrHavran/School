@@ -3,21 +3,13 @@ package org.example.Logic.PathFinding;
 import org.example.Node;
 import org.example.Path;
 
-import java.util.ArrayList;
-
-public class DSA implements PathFinderOld {
-    private final ArrayList<Path> finalPath;
-    private int steps;
-
-    private final ArrayList<Node> visited;
-    private final ArrayList<Node> queue;
+public class DSA extends PathFinder {
 
     public DSA() {
-        this.finalPath = new ArrayList<>();
-        this.visited = new ArrayList<>();
-        this.queue = new ArrayList<>();
+        super();
     }
 
+    @Override
     public void findPath(Node start, Node end){
         queue.clear();
         finalPath.clear();
@@ -59,30 +51,5 @@ public class DSA implements PathFinderOld {
             finalPath.add(new Path(selected, next));
             selected = next;
         }
-    }
-
-    private double calculateDistance(Node start, Node end){
-        double lon = start.getLongitude() - end.getLongitude();
-        double lan = start.getLatitude() - end.getLatitude();
-        return Math.sqrt(Math.pow(lon, 2) + Math.pow(lan, 2));
-    }
-
-    private Node findSmallest(ArrayList<Node> list){
-        Node minNode = list.getFirst();
-        double min = minNode.getValue();
-        for(Node next : list){
-            if(next.getValue() < min){
-                min = next.getValue();
-                minNode = next;
-            }
-        }
-        return minNode;
-    }
-
-    public ArrayList<Path> getFinalPath(){
-        return finalPath;
-    }
-    public int getSteps(){
-        return steps;
     }
 }

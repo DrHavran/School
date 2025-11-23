@@ -14,16 +14,10 @@ public class Gun extends Weapon{
         changeAnimation("idle");
 
         ammo = 20;
-        shootDelay = 20;
+        shootDelay = 10;
 
         sprite.setSize((float) (size*1.2), (float) size /2);
         sprite.setOrigin(sprite.getWidth(), sprite.getHeight()/2);
-    }
-
-    @Override
-    public void update() {
-        updateFrame();
-        upperUpdate();
     }
 
     private void loadAnimations() {

@@ -11,7 +11,7 @@ import java.util.Hashtable;
 
 public class Logic {
     private final Data data;
-    private PathFinderOld pathFinder;
+    private PathFinder pathFinder;
 
     public Logic(String fileLink) {
         this.data = new Data(fileLink);
@@ -40,25 +40,47 @@ public class Logic {
         return paths;
     }
 
-    public ArrayList<Path> findPath(long start, long end) {
-        pathFinder.findPath(getNode(start), getNode(end));
-        return pathFinder.getFinalPath();
-    }
-
     public Node findCenter(long id){
-        Node node = getNode(id);
+        Node center = null;
+        double maxValue = 0;
 
-        ArrayList<Node> nodes = new ArrayList<>();
+        HashSet<Node> nodes = new HashSet<>();
+        HashSet<Node> unvisited = new HashSet<>();
+        unvisited.add(getNode(id));
+
+        while(!unvisited.isEmpty()){
+            Node next = unvisited.iterator().next();
+            for(Node selected : next.getPaths()){
+                if(!nodes.contains(selected)){
+                    unvisited.add(selected);
+                }
+            }
+            nodes.add(next);
+            unvisited.remove(next);
+        }
+
+        System.out.println(nodes.size());
 
         for(Node parent : nodes){
+            double length = 0;
             for(Node child : nodes){
                 if(!parent.equals(child)){
                     pathFinder.findPath(parent, child);
+                    length = length + pathFinder.getLength();
                 }
+            }
+            if(maxValue < length){
+                maxValue = length;
+                center = parent;
             }
         }
 
-        return null;
+        return center;
+    }
+
+    public ArrayList<Path> findPath(long start, long end) {
+        pathFinder.findPath(getNode(start), getNode(end));
+        return pathFinder.getFinalPath();
     }
 
     public void switchMethod(String method){
@@ -71,19 +93,19 @@ public class Logic {
         }
     }
 
+    public double scaleX(double number){
+        return data.scaleX(number);
+    }
+    public double scaleY(double number){
+        return data.scaleY(number);
+    }
+
     public Hashtable<Long, Node> getNodes() {return data.getNodes();}
     public ArrayList<Path> getPaths() {
         return data.getPaths();
     }
     public Node getNode(long id) {
         return data.getNodes().get(id);
-    }
-
-    public double scaleX(double number){
-        return data.scaleX(number);
-    }
-    public double scaleY(double number){
-        return data.scaleY(number);
     }
     public String getScore(){
         String method = pathFinder.getClass().getSimpleName();

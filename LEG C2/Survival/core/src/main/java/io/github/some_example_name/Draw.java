@@ -18,17 +18,17 @@ public class Draw {
     public void update(){
         logic.update();
 
-        for(Entity entity : logic.getEntities()){ //draw everything
+        for(Entity entity : logic.getMainEntities()){ //draw player and gun
             draw(entity);
         }
-        for(Entity entity : logic.getMainEntities()){ //draw player and gun
+        for(Entity entity : logic.getEntities()){ //draw everything
             draw(entity);
         }
     }
 
     private void draw(Entity entity) {
         Sprite sprite = entity.getSprite();
-        Texture texture = logic.getTexture(entity.getAnimation());
+        Texture texture = logic.getTexture(entity.getAnimation() + entity.getRotation());
         int frameWidth = texture.getWidth() / entity.getFrameCount();
 
         sprite.setTexture(texture);

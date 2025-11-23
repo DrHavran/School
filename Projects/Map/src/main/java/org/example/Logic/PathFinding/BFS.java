@@ -3,19 +3,10 @@ package org.example.Logic.PathFinding;
 import org.example.Node;
 import org.example.Path;
 
-import java.util.ArrayList;
-
-public class BFS implements PathFinderOld {
-    private final ArrayList<Path> finalPath;
-    private int steps;
-
-    private final ArrayList<Node> queue;
-    private final ArrayList<Node> visited;
+public class BFS extends PathFinder {
 
     public BFS() {
-        this.finalPath = new ArrayList<>();
-        this.queue = new ArrayList<>();
-        this.visited = new ArrayList<>();
+        super();
     }
 
     public void findPath(Node start, Node end) {
@@ -59,7 +50,4 @@ public class BFS implements PathFinderOld {
         }
 
     }
-
-    public ArrayList<Path> getFinalPath(){ return finalPath; }
-    public int getSteps(){ return steps; }
 }

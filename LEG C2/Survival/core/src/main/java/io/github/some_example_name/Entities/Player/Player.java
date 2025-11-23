@@ -98,7 +98,4 @@ public class Player extends Entity {
     public void damage(int hit) {
         health -= hit;
     }
-    public String getRotation(){
-        return rotation;
-    }
 }
