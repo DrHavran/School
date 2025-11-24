@@ -25,8 +25,8 @@ public class Draw {
 
         logic.switchMethod("A*");
         //findPath(66973468L, 693323283L);
-        drawAllConnections(66973468L);
-        //findCenter(66973468L);
+        //drawAllConnections(66973468L);
+        findCenter(66973468L);
 
         drawScore();
     }
@@ -52,12 +52,9 @@ public class Draw {
         }
     }
     private void drawAllConnections(long id){
-        int count = 0;
         for(Path path : logic.colorAllPaths(id)) {
-            count++;
             drawLine(path, Color.RED);
         }
-        System.out.println("There are " + count + " nodes in section");
     }
     private void drawScore(){
         Text text = new Text(10, 20, logic.getScore());

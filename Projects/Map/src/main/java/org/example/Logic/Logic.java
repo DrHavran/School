@@ -18,13 +18,11 @@ public class Logic {
     }
 
     public ArrayList<Path> colorAllPaths(Long id) {
-        Node node = getNode(id);
-
+        ArrayList<Path> paths = new ArrayList<>();
         HashSet<Node> visited = new HashSet<>();
         HashSet<Node> unVisited = new HashSet<>();
-        ArrayList<Path> paths = new ArrayList<>();
 
-        unVisited.add(node);
+        unVisited.add(getNode(id));
         while(!unVisited.isEmpty()) {
             Node next = unVisited.iterator().next();
             for (Node selected : next.getPaths()){
@@ -41,34 +39,38 @@ public class Logic {
     }
 
     public Node findCenter(long id){
-        Node center = null;
-        double maxValue = 0;
+        HashSet<Node> visited = new HashSet<>();
+        HashSet<Node> unVisited = new HashSet<>();
 
-        HashSet<Node> nodes = new HashSet<>();
-        HashSet<Node> unvisited = new HashSet<>();
-        unvisited.add(getNode(id));
-
-        while(!unvisited.isEmpty()){
-            Node next = unvisited.iterator().next();
+        unVisited.add(getNode(id));
+        while(!unVisited.isEmpty()){
+            Node next = unVisited.iterator().next();
             for(Node selected : next.getPaths()){
-                if(!nodes.contains(selected)){
-                    unvisited.add(selected);
+                if(!visited.contains(selected)){
+                    unVisited.add(selected);
                 }
             }
-            nodes.add(next);
-            unvisited.remove(next);
+            unVisited.remove(next);
+            visited.add(next);
         }
 
-        System.out.println(nodes.size());
+        System.out.println(visited.size());
 
-        for(Node parent : nodes){
+        Node center = null;
+        double maxValue = 0;
+        double count = 0;
+
+        for(Node parent : visited){
             double length = 0;
-            for(Node child : nodes){
+            count++;
+            for(Node child : visited){
                 if(!parent.equals(child)){
                     pathFinder.findPath(parent, child);
+                    resetValue(visited);
                     length = length + pathFinder.getLength();
                 }
             }
+            System.out.println(count + " done " + count/visited.size()*100 + "%");
             if(maxValue < length){
                 maxValue = length;
                 center = parent;
@@ -93,6 +95,11 @@ public class Logic {
         }
     }
 
+    private void resetValue(HashSet<Node> list){
+        for(Node node : list){
+            node.setValue(Double.MAX_VALUE);
+        }
+    }
     public double scaleX(double number){
         return data.scaleX(number);
     }
