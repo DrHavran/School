@@ -54,8 +54,6 @@ public class Logic {
             visited.add(next);
         }
 
-        System.out.println(visited.size());
-
         Node center = null;
         double maxValue = 0;
         double count = 0;
@@ -66,11 +64,10 @@ public class Logic {
             for(Node child : visited){
                 if(!parent.equals(child)){
                     pathFinder.findPath(parent, child);
-                    resetValue(visited);
                     length = length + pathFinder.getLength();
                 }
             }
-            System.out.println(count + " done " + count/visited.size()*100 + "%");
+            System.out.println((int)count + " done " + count/visited.size()*100 + "%");
             if(maxValue < length){
                 maxValue = length;
                 center = parent;
@@ -95,11 +92,6 @@ public class Logic {
         }
     }
 
-    private void resetValue(HashSet<Node> list){
-        for(Node node : list){
-            node.setValue(Double.MAX_VALUE);
-        }
-    }
     public double scaleX(double number){
         return data.scaleX(number);
     }

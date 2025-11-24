@@ -11,32 +11,34 @@ public class AStar extends PathFinder {
 
     @Override
     public void findPath(Node start, Node end){
-        queue.clear();
-        finalPath.clear();
-        visited.clear();
-        steps = 0;
+        clean();
 
-        start.setValue(0);
-        queue.add(start);
+        nodes.put(start, 0.0);
         visited.add(start);
+        queue.add(start);
 
         while(!queue.isEmpty()){
             Node selected = findSmallest(queue);
             queue.remove(selected);
             for(Node node : selected.getPaths()){
+                if(!nodes.containsKey(node)){
+                    nodes.put(node, Double.POSITIVE_INFINITY);
+                }
+
                 if(node == end){
                     //System.out.println("found end");
                     //System.out.println("A* took " + steps + " steps");
                     createPath(node);
                     return;
                 }
+
                 if(!visited.contains(node)){
                     steps++;
-                    double fromStart = selected.getValue() + calculateDistance(selected, node);
+                    double fromStart = nodes.get(selected) + calculateDistance(selected, node);
                     double fromEnd = calculateDistance(node, end);
 
-                    if(node.getValue() > fromStart + fromEnd){
-                        node.setValue(fromStart + fromEnd);
+                    if(nodes.get(node) > fromStart + fromEnd){
+                        nodes.replace(node, fromStart + fromEnd);
                         queue.add(node);
                     }
                 }
@@ -49,7 +51,7 @@ public class AStar extends PathFinder {
     private void createPath(Node node){
         Node selected = node;
 
-        while(selected.getValue() != 0){
+        while(nodes.get(selected) != 0){
             Node next = findSmallest(selected.getPaths());
             finalPath.add(new Path(selected, next));
             selected = next;

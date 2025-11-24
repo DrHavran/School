@@ -4,29 +4,43 @@ import org.example.Node;
 import org.example.Path;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PathFinder {
     protected final ArrayList<Path> finalPath;
     protected int steps;
 
     protected final ArrayList<Node> visited;
+    protected final HashMap<Node, Double> nodes;
     protected final ArrayList<Node> queue;
 
     public PathFinder() {
         this.finalPath = new ArrayList<>();
         this.visited = new ArrayList<>();
         this.queue = new ArrayList<>();
+        this.nodes = new HashMap<>();
         this.steps = 0;
     }
 
     public void findPath(Node start, Node end) {}
 
+    protected void clean(){
+        finalPath.clear();
+        visited.clear();
+        queue.clear();
+        nodes.clear();
+        steps = 0;
+    }
+
     protected Node findSmallest(ArrayList<Node> list){
         Node minNode = list.getFirst();
-        double min = minNode.getValue();
+        double min = Double.POSITIVE_INFINITY;
         for(Node next : list){
-            if(next.getValue() < min){
-                min = next.getValue();
+            if(!nodes.containsKey(next)){
+                continue;
+            }
+            if(nodes.get(next) < min){
+                min = nodes.get(next);
                 minNode = next;
             }
         }
@@ -46,7 +60,6 @@ public class PathFinder {
         }
         return total;
     }
-
     public int getSteps(){
         return this.steps;
     }

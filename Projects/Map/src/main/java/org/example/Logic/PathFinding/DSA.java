@@ -11,19 +11,19 @@ public class DSA extends PathFinder {
 
     @Override
     public void findPath(Node start, Node end){
-        queue.clear();
-        finalPath.clear();
-        visited.clear();
-        steps = 0;
+        clean();
 
-        start.setValue(0);
+        nodes.put(start, 0.0);
         queue.add(start);
-        visited.add(start);
 
         while(!queue.isEmpty()){
             Node selected = findSmallest(queue);
             queue.remove(selected);
             for(Node node : selected.getPaths()){
+                if(!nodes.containsKey(node)){
+                    nodes.put(node, Double.POSITIVE_INFINITY);
+                }
+
                 if(node == end){
                     System.out.println("found end");
                     System.out.println("DSA took " + steps + " steps");
@@ -32,8 +32,8 @@ public class DSA extends PathFinder {
                 }
                 if(!visited.contains(node)){
                     steps++;
-                    if(selected.getValue() + calculateDistance(selected, node) < node.getValue()){
-                        node.setValue(selected.getValue() + calculateDistance(selected, node));
+                    if(nodes.get(selected) + calculateDistance(selected, node) < nodes.get(node)){
+                        nodes.replace(node, nodes.get(selected) + calculateDistance(selected, node));
                         queue.add(node);
                     }
                 }
@@ -46,7 +46,7 @@ public class DSA extends PathFinder {
     private void createPath(Node node){
         Node selected = node;
 
-        while(selected.getValue() != 0){
+        while(nodes.get(selected) != 0){
             Node next = findSmallest(selected.getPaths());
             finalPath.add(new Path(selected, next));
             selected = next;

@@ -10,10 +10,7 @@ public class BFS extends PathFinder {
     }
 
     public void findPath(Node start, Node end) {
-        queue.clear();
-        finalPath.clear();
-        visited.clear();
-        steps = 0;
+        clean();
 
         queue.add(start);
         visited.add(start);

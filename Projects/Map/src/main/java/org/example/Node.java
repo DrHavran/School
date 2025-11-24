@@ -8,14 +8,12 @@ public class Node {
     private final ArrayList<Node> paths;
 
     private Node parent;
-    private double value;
 
     public Node(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.paths = new ArrayList<>();
         this.parent = null;
-        this.value = Double.MAX_VALUE;
     }
 
     public void addNode(Node node) {
@@ -28,7 +26,6 @@ public class Node {
     public double getLatitude() {
         return latitude;
     }
-
     public ArrayList<Node> getPaths() { return paths; }
 
     public Node getParent() {
@@ -36,12 +33,5 @@ public class Node {
     }
     public void setParent(Node parent) {
         this.parent = parent;
-    }
-
-    public double getValue() {
-        return value;
-    }
-    public void setValue(double value) {
-        this.value = value;
     }
 }
