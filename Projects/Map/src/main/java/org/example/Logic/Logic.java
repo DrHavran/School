@@ -56,7 +56,7 @@ public class Logic {
 
         Node center = null;
         double minValue = Double.MAX_VALUE;
-        double count = 0;
+        int count = 0;
 
         for(Node parent : visited){
             double length = 0;
@@ -67,7 +67,7 @@ public class Logic {
                     length = length + pathFinder.getLength();
                 }
             }
-            System.out.println("Node: " + (int)count + " done " + count/visited.size()*100 + ", with length " + length);
+            System.out.println("Node: " + count + " done " + count/visited.size()*100 + "%, with length " + length);
             if(minValue > length){
                 minValue = length;
                 center = parent;

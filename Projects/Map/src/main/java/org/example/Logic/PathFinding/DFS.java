@@ -13,6 +13,7 @@ public class DFS extends PathFinder {
 
     public void findPath(Node start, Node end){
         clean();
+        this.end = end;
         nextStep(start);
     }
 

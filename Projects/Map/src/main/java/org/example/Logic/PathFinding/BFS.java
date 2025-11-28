@@ -24,7 +24,7 @@ public class BFS extends PathFinder {
                     node.setParent(selected);
                     visited.add(node);
                     if(node.equals(end)){
-                        createPath(node);
+                        createNormalPath(node);
                         System.out.println("Found end");
                         System.out.println("BFS took " + steps + " steps");
                         return;
@@ -37,7 +37,7 @@ public class BFS extends PathFinder {
         System.out.println("Didnt find a path");
     }
 
-    private void createPath(Node node) {
+    private void createNormalPath(Node node) {
 
         Node selected = node;
 

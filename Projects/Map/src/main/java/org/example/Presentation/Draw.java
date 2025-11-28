@@ -19,15 +19,16 @@ public class Draw {
 
     public Draw() {
         this.root = new Pane();
-        this.logic = new Logic("myHouse");
+        this.logic = new Logic("House");
 
         drawMap();
 
         logic.switchMethod("A*");
         //findPath(66973468L, 693323283L);
         //drawAllConnections(66973468L);
+        //findCenter(66973468L);
 
-        drawAllConnections(11914214043L);
+        //drawAllConnections(11914214043L);
         findCenter(11914214043L);
 
         drawScore();
