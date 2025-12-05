@@ -3,6 +3,7 @@ import Printer.*;
 import Units.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,12 +36,12 @@ public class Main {
         units.add(new Mage("Kodytek"));
         units.add(new Archer("Sedláček"));
         units.add(new Warrior("Pešek"));
-
+        Random random = new Random();
         for(Unit unit : units){
             ArrayList<Unit> targets = new ArrayList<>(units);
             targets.remove(unit);
 
-            Unit target = targets.getFirst();
+            Unit target = targets.get(random.nextInt(targets.size()));
             unit.takeTurn(target);
         }
     }
