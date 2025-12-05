@@ -61,6 +61,7 @@ public class Logic {
         for(Node parent : visited){
             double length = 0;
             count++;
+            System.out.println("Checking node " + count);
             for(Node child : visited){
                 if(!parent.equals(child)){
                     pathFinder.findPath(parent, child);

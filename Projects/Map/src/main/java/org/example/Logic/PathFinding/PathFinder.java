@@ -51,6 +51,7 @@ public abstract class PathFinder {
             selected = next;
         }
         selected.setValue(Double.POSITIVE_INFINITY);
+        selected.setParent(null);
     }
 
     public double getLength(){

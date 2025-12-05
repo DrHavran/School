@@ -19,7 +19,7 @@ public class Draw {
 
     public Draw() {
         this.root = new Pane();
-        this.logic = new Logic("House");
+        this.logic = new Logic("Intersection");
 
         drawMap();
 
@@ -29,7 +29,10 @@ public class Draw {
         //findCenter(66973468L);
 
         //drawAllConnections(11914214043L);
-        findCenter(11914214043L);
+        //findCenter(11914214043L);
+
+        //drawAllConnections(25376608L);
+        findCenter(25376608L);
 
         drawScore();
     }

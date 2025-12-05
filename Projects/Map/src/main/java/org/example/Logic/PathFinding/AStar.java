@@ -19,8 +19,8 @@ public class AStar extends PathFinder {
             Node selected = priorityQueue.poll();
             for(Node node : selected.getPaths()){
                 if(node == end){
-                    //System.out.println("found end");
-                    //System.out.println("A* took " + steps + " steps");
+                    System.out.println("found end");
+                    System.out.println("A* took " + steps + " steps");
                     createPath(node);
                     return;
                 }
@@ -38,6 +38,6 @@ public class AStar extends PathFinder {
             }
             visited.add(selected);
         }
-        //System.out.println("Didnt find a path");
+        System.out.println("Didnt find a path");
     }
 }
