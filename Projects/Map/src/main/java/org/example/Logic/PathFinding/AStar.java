@@ -32,6 +32,7 @@ public class AStar extends PathFinder {
 
                     if(node.getValue() > fromStart + fromEnd){
                         node.setValue(fromStart + fromEnd);
+                        node.setParent(selected);
                         priorityQueue.add(node);
                     }
                 }

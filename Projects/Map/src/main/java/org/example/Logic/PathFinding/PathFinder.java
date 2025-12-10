@@ -42,16 +42,13 @@ public abstract class PathFinder {
     protected void createPath(Node node){
         Node selected = node;
 
-        while(selected.getValue() != 0){
+        while(selected.getParent() != null){
+            Node next = selected.getParent();
             selected.setValue(Double.POSITIVE_INFINITY);
-            priorityQueue.clear();
-            priorityQueue.addAll(selected.getPaths());
-            Node next = priorityQueue.poll();
             finalPath.add(new Path(selected, next));
             selected = next;
         }
         selected.setValue(Double.POSITIVE_INFINITY);
-        selected.setParent(null);
     }
 
     public double getLength(){

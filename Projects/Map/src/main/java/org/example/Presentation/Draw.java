@@ -19,12 +19,12 @@ public class Draw {
 
     public Draw() {
         this.root = new Pane();
-        this.logic = new Logic("Intersection");
+        this.logic = new Logic("Street");
 
         drawMap();
 
         logic.switchMethod("A*");
-        //findPath(66973468L, 693323283L);
+        findPath(66973468L, 693323283L);
         //drawAllConnections(66973468L);
         //findCenter(66973468L);
 
@@ -32,7 +32,7 @@ public class Draw {
         //findCenter(11914214043L);
 
         //drawAllConnections(25376608L);
-        findCenter(25376608L);
+        //findCenter(25376608L);
 
         drawScore();
     }
