@@ -23,15 +23,15 @@ public class Draw {
 
         drawMap();
 
-        logic.switchMethod("A*");
-        findPath(66973468L, 693323283L);
+        logic.switchMethod("BFS");
+        //findPath(66973468L, 693323283L); //Street
         //drawAllConnections(66973468L);
-        //findCenter(66973468L);
+        findCenter(66973468L);
 
-        //drawAllConnections(11914214043L);
+        //drawAllConnections(11914214043L); //House
         //findCenter(11914214043L);
 
-        //drawAllConnections(25376608L);
+        //drawAllConnections(25376608L); //Intersection
         //findCenter(25376608L);
 
         drawScore();
@@ -74,10 +74,10 @@ public class Draw {
     }
 
     private void drawLine(Path path, Paint color) {
-        double startX = logic.scaleX(path.getStart().getLongitude());
-        double startY = logic.scaleY(path.getStart().getLatitude());
-        double endX = logic.scaleX(path.getEnd().getLongitude());
-        double endY = logic.scaleY(path.getEnd().getLatitude());
+        double startX = logic.scaleX(path.start().getLongitude());
+        double startY = logic.scaleY(path.start().getLatitude());
+        double endX = logic.scaleX(path.end().getLongitude());
+        double endY = logic.scaleY(path.end().getLatitude());
 
         Line line = new Line(startX, startY, endX, endY);
 

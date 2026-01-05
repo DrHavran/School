@@ -1,5 +1,6 @@
 package org.example.Logic.PathFinding;
 
+import org.example.Logic.Settings;
 import org.example.Node;
 
 public class AStar extends PathFinder {
@@ -13,15 +14,19 @@ public class AStar extends PathFinder {
         clean();
 
         start.setValue(0);
+        toClear.add(start);
         priorityQueue.add(start);
 
         while(!priorityQueue.isEmpty()){
             Node selected = priorityQueue.poll();
             for(Node node : selected.getPaths()){
                 if(node == end){
-                    System.out.println("found end");
-                    System.out.println("A* took " + steps + " steps");
+                    node.setParent(selected);
                     createPath(node);
+                    if(Settings.print){
+                        System.out.println("found end");
+                        System.out.println("A* took " + steps + " steps");
+                    }
                     return;
                 }
 
@@ -33,6 +38,7 @@ public class AStar extends PathFinder {
                     if(node.getValue() > fromStart + fromEnd){
                         node.setValue(fromStart + fromEnd);
                         node.setParent(selected);
+                        toClear.add(node);
                         priorityQueue.add(node);
                     }
                 }

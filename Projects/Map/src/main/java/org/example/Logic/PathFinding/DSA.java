@@ -1,5 +1,6 @@
 package org.example.Logic.PathFinding;
 
+import org.example.Logic.Settings;
 import org.example.Node;
 
 public class DSA extends PathFinder {
@@ -20,9 +21,11 @@ public class DSA extends PathFinder {
             Node selected = priorityQueue.poll();
             for(Node node : selected.getPaths()){
                 if(node == end){
-                    System.out.println("found end");
-                    System.out.println("DSA took " + steps + " steps");
                     createPath(node);
+                    if(Settings.print){
+                        System.out.println("found end");
+                        System.out.println("DSA took " + steps + " steps");
+                    }
                     return;
                 }
 

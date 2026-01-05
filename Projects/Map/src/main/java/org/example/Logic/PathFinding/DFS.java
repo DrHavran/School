@@ -1,5 +1,6 @@
 package org.example.Logic.PathFinding;
 
+import org.example.Logic.Settings;
 import org.example.Node;
 import org.example.Path;
 
@@ -22,8 +23,10 @@ public class DFS extends PathFinder {
         visited.add(current);
         for(Node node : current.getPaths()){
             if(node == end){
-                System.out.println("found end");
-                System.out.println("DFS took " + steps + " steps");
+                if(Settings.print){
+                    System.out.println("found end");
+                    System.out.println("DFS took " + steps + " steps");
+                }
                 return true;
             }
             if (!visited.contains(node)) {

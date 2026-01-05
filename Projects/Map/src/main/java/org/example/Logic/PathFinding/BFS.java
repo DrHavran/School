@@ -1,7 +1,7 @@
 package org.example.Logic.PathFinding;
 
+import org.example.Logic.Settings;
 import org.example.Node;
-import org.example.Path;
 
 public class BFS extends PathFinder {
 
@@ -23,10 +23,12 @@ public class BFS extends PathFinder {
                 if(!visited.contains(node)){
                     node.setParent(selected);
                     visited.add(node);
-                    if(node.equals(end)){
-                        createNormalPath(node);
-                        System.out.println("Found end");
-                        System.out.println("BFS took " + steps + " steps");
+                    if(node == end){
+                        createPath(node);
+                        if(Settings.print){
+                            System.out.println("Found end");
+                            System.out.println("BFS took " + steps + " steps");
+                        }
                         return;
                     } else {
                         queue.add(node);
@@ -35,16 +37,5 @@ public class BFS extends PathFinder {
             }
         }
         System.out.println("Didnt find a path");
-    }
-
-    private void createNormalPath(Node node) {
-
-        Node selected = node;
-
-        while(selected.getParent() != null){
-            finalPath.add(new Path(selected, selected.getParent()));
-            selected = selected.getParent();
-        }
-
     }
 }

@@ -5,6 +5,7 @@ import org.example.Path;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public abstract class PathFinder {
@@ -15,11 +16,14 @@ public abstract class PathFinder {
     protected final ArrayList<Node> queue;
     protected final PriorityQueue<Node> priorityQueue;
 
+    protected final HashSet<Node> toClear;
+
     public PathFinder() {
         this.finalPath = new ArrayList<>();
         this.visited = new ArrayList<>();
         this.queue = new ArrayList<>();
         this.priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(Node::getValue));
+        this.toClear = new HashSet<>();
         this.steps = 0;
     }
 
@@ -30,6 +34,10 @@ public abstract class PathFinder {
         visited.clear();
         priorityQueue.clear();
         queue.clear();
+        for(Node node : toClear){
+            node.setValue(Double.POSITIVE_INFINITY);
+            node.setParent(null);
+        }
         steps = 0;
     }
 
@@ -43,12 +51,9 @@ public abstract class PathFinder {
         Node selected = node;
 
         while(selected.getParent() != null){
-            Node next = selected.getParent();
-            selected.setValue(Double.POSITIVE_INFINITY);
-            finalPath.add(new Path(selected, next));
-            selected = next;
+            finalPath.add(new Path(selected, selected.getParent()));
+            selected = selected.getParent();
         }
-        selected.setValue(Double.POSITIVE_INFINITY);
     }
 
     public double getLength(){
