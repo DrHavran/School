@@ -13,7 +13,7 @@ public class Node {
     public Node(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
-        this.value = Double.POSITIVE_INFINITY;
+        this.value = Double.MAX_VALUE;
         this.paths = new ArrayList<>();
         this.parent = null;
     }

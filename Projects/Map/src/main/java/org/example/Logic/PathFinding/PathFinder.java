@@ -35,7 +35,7 @@ public abstract class PathFinder {
         priorityQueue.clear();
         queue.clear();
         for(Node node : toClear){
-            node.setValue(Double.POSITIVE_INFINITY);
+            node.setValue(Double.MAX_VALUE);
             node.setParent(null);
         }
         steps = 0;
