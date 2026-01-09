@@ -68,7 +68,6 @@ public class Logic {
                     length = length + pathFinder.getLength();
                 }
             }
-            System.out.println("Node: " + count + " done " + count/visited.size()*100 + "%, with length " + length);
             if(minValue > length){
                 minValue = length;
                 center = parent;

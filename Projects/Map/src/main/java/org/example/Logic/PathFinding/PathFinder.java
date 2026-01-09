@@ -12,7 +12,7 @@ public abstract class PathFinder {
     protected final ArrayList<Path> finalPath;
     protected int steps;
 
-    protected final ArrayList<Node> visited;
+    protected final HashSet<Node> visited;
     protected final ArrayList<Node> queue;
     protected final PriorityQueue<Node> priorityQueue;
 
@@ -20,7 +20,7 @@ public abstract class PathFinder {
 
     public PathFinder() {
         this.finalPath = new ArrayList<>();
-        this.visited = new ArrayList<>();
+        this.visited = new HashSet<>();
         this.queue = new ArrayList<>();
         this.priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(Node::getValue));
         this.toClear = new HashSet<>();
