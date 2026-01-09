@@ -20,7 +20,7 @@ public class Data {
         nodes = new Hashtable<>();
         paths = new ArrayList<>();
         loadFile(fileLink);
-        System.out.println("Loaded " + nodes.size() + " nodes");
+        System.out.println("Data: Loaded " + nodes.size() + " nodes");
     }
 
     private void loadFile(String fileLink){
@@ -41,7 +41,7 @@ public class Data {
                         double lon = Double.parseDouble(reader.getAttributeValue(null, "lon"));
                         long id = Long.parseLong(reader.getAttributeValue(null, "id"));
 
-                        System.out.println("Node - " + id + ": " + lat + " " + lon);
+                        System.out.println("Data: Node - " + id + ": " + lat + " " + lon);
                         Node node = new Node(lon, lat);
                         nodes.put(id, node);
                     }else if("way".equals(name)){
