@@ -1,12 +1,14 @@
 package org.example;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Node {
     private final double longitude; //X
     private final double latitude;  //Y
-    private final ArrayList<Node> paths;
+    private final HashSet<Node> paths;
+
     private double value;
+    private double fromStart;
 
     private Node parent;
 
@@ -14,7 +16,7 @@ public class Node {
         this.longitude = longitude;
         this.latitude = latitude;
         this.value = Double.MAX_VALUE;
-        this.paths = new ArrayList<>();
+        this.paths = new HashSet<>();
         this.parent = null;
     }
 
@@ -28,13 +30,20 @@ public class Node {
     public double getLatitude() {
         return latitude;
     }
-    public ArrayList<Node> getPaths() { return paths; }
+    public HashSet<Node> getPaths() { return paths; }
 
     public double getValue() {
         return value;
     }
     public void setValue(double value) {
         this.value = value;
+    }
+
+    public double getFromStart() {
+        return fromStart;
+    }
+    public void setFromStart(double fromStart) {
+        this.fromStart = fromStart;
     }
 
     public Node getParent() {

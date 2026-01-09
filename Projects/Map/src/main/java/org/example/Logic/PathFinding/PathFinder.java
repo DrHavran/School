@@ -37,7 +37,9 @@ public abstract class PathFinder {
         for(Node node : toClear){
             node.setValue(Double.MAX_VALUE);
             node.setParent(null);
+            node.setFromStart(0);
         }
+        toClear.clear();
         steps = 0;
     }
 

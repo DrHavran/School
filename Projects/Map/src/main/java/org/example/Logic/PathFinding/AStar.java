@@ -14,6 +14,7 @@ public class AStar extends PathFinder {
         clean();
 
         start.setValue(0);
+        start.setParent(null);
         toClear.add(start);
         priorityQueue.add(start);
 
@@ -32,11 +33,12 @@ public class AStar extends PathFinder {
 
                 if(!visited.contains(node)){
                     steps++;
-                    double fromStart = selected.getValue() + calculateDistance(selected, node);
+                    double fromStart = selected.getFromStart() + calculateDistance(selected, node);
                     double fromEnd = calculateDistance(node, end);
 
                     if(node.getValue() > fromStart + fromEnd){
                         node.setValue(fromStart + fromEnd);
+                        node.setFromStart(fromStart);
                         node.setParent(selected);
                         toClear.add(node);
                         priorityQueue.add(node);

@@ -54,6 +54,7 @@ public class Logic {
             visited.add(next);
         }
 
+        System.out.println("Number of nodes center: " + visited.size());
         Node center = null;
         double minValue = Double.MAX_VALUE;
         int count = 0;
