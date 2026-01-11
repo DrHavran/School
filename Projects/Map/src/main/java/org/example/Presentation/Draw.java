@@ -23,7 +23,7 @@ public class Draw {
 
         drawMap();
 
-        logic.switchMethod("BFS");
+        logic.switchMethod("A*");
         //findPath(66973468L, 693323283L); //Street
         //drawAllConnections(66973468L);
         findCenter(66973468L);

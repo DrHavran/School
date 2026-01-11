@@ -21,7 +21,7 @@ public class DSA extends PathFinder {
             Node selected = priorityQueue.poll();
             for(Node node : selected.getPaths()){
                 if(node == end){
-                    createPath(node);
+                    createPath(selected);
                     if(Settings.print){
                         System.out.println("found end");
                         System.out.println("DSA took " + steps + " steps");
@@ -34,6 +34,7 @@ public class DSA extends PathFinder {
                     double distance = calculateDistance(selected, node);
                     if(selected.getValue() + distance < node.getValue()){
                         node.setValue(selected.getValue() + distance);
+                        node.setParent(selected);
                         priorityQueue.add(node);
                     }
                 }
