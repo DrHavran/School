@@ -16,6 +16,8 @@ public class Data {
     private final ArrayList<Path> paths;
     private NodeModel model;
 
+    private double minLon, maxLon, minLat, maxLat;
+
     public Data(String fileLink) {
         nodes = new Hashtable<>();
         paths = new ArrayList<>();
