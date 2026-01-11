@@ -59,12 +59,15 @@ public class Logic {
         double minValue = Double.MAX_VALUE;
         int count = 0;
 
+        HashSet<Node> finished = new HashSet<>();
+
         for(Node parent : visited){
             double length = 0;
             count++;
             System.out.println("Checking node " + count);
+            finished.add(parent);
             for(Node child : visited){
-                if(!parent.equals(child)){
+                if(!finished.contains(child)){
                     pathFinder.findPath(parent, child);
                     length = length + pathFinder.getLength();
                 }

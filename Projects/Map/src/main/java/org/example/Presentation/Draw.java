@@ -19,26 +19,26 @@ public class Draw {
 
     public Draw() {
         this.root = new Pane();
-        this.logic = new Logic("Street");
+        this.logic = new Logic("Intersection");
 
         drawMap();
 
         logic.switchMethod("A*");
         //findPath(66973468L, 693323283L); //Street
         //drawAllConnections(66973468L);
-        findCenter(66973468L);
+        //findCenter(66973468L);
 
         //drawAllConnections(11914214043L); //House
         //findCenter(11914214043L);
 
         //drawAllConnections(25376608L); //Intersection
-        //findCenter(25376608L);
+        findCenter(25376608L);
 
         drawScore();
     }
 
     private void findCenter(long id){
-        drawDot(logic.findCenter(id), Color.CYAN);
+        drawDot(logic.findCenter(id), Color.RED);
     }
     private void findPath(long start, long end){
         drawDot(logic.getNode(start), Color.GREEN);
