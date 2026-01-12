@@ -1,4 +1,4 @@
-function Home () {
+function Expense () {
     return (
         <div className="d-flex flex-column align-items-center">
             <h1 className="my-4">Home page</h1>
@@ -13,4 +13,4 @@ function Home () {
     )
 }
 
-export default Home;
+export default Expense;
