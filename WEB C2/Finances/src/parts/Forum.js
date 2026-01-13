@@ -11,8 +11,8 @@ function Forum ({onSubmit}) {
 
     return (
         <form className="form d-flex justify-content-around border py-4" onSubmit={handleSubmit}>
-            <input name="name" type="text" className="form-control w-75 mx-5" placeholder="Name of the expense" />
-            <input name="amount" type="number" className="form-control w-75 mx-5" placeholder="How much?" min={1}/>
+            <input name="name" type="text" className="form-control w-75 mx-5" placeholder="Name of the expense" required/>
+            <input name="amount" type="number" className="form-control w-75 mx-5" placeholder="How much?" min={1} required/>
             <input type="submit" value="Přidat úkol" className="btn btn-success mx-5"/>
         </form>
     )
