@@ -2,7 +2,7 @@ import Home from './pages/Home';
 import Expenses from './pages/Expenses';
 import Navigation from './parts/Navigation';
 
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
