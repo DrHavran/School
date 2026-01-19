@@ -1,0 +1,16 @@
+Animal,Weight_kg,Can_Swim,Can_Fly,Lifespan_years,Habitat,Nocturnal,Diet,Class
+Sparrow,0.03,No,Yes,3,Forest,No,Herbivore,Bird
+Eagle,6.0,No,Yes,20,Mountains,No,Carnivore,Bird
+Penguin,30.0,Yes,No,15,Polar,No,Carnivore,Bird
+Ostrich,90.0,No,No,40,Savannah,No,Herbivore,Bird
+Cat,4.0,No,No,15,Domestic,Yes,Carnivore,Mammal
+Dog,20.0,Yes,No,12,Domestic,No,Omnivore,Mammal
+Dolphin,150.0,Yes,No,30,Ocean,No,Carnivore,Mammal
+Bat,0.5,No,Yes,20,Caves,Yes,Omnivore,Mammal
+Goldfish,0.1,Yes,No,5,Freshwater,No,Herbivore,Fish
+Whale,20000.0,Yes,No,90,Ocean,No,Carnivore,Mammal
+Crocodile,500.0,Yes,No,70,Swamp,No,Carnivore,Reptile
+Turtle,200.0,Yes,No,100,Freshwater,No,Herbivore,Reptile
+Frog,0.2,Yes,No,10,Swamp,No,Carnivore,Amphibian
+Salamander,0.5,Yes,No,15,Forest,No,Carnivore,Amphibian
+Parrot,1.0,No,Yes,50,Tropical,No,Herbivore,Bird
