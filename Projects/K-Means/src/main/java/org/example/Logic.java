@@ -51,9 +51,6 @@ public class Logic {
         }
     }
 
-    public HashSet<Node> getNodes() {
-        return data.getNodes();
-    }
     public HashSet<Cluster> getClusters() {
         return data.getClusters();
     }
