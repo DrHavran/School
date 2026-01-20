@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Data {
     ArrayList<String> attributes;
-    ArrayList<HashMap<String, Object>> animals;
+    ArrayList<HashMap<String, String>> animals;
 
     public Data() {
         this.animals = new ArrayList<>();
@@ -19,21 +19,23 @@ public class Data {
             System.out.println(Arrays.toString(attributes.toArray()));
 
             while(sc.hasNextLine()) {
-                HashMap<String, Object> animal = new HashMap<>();
+                HashMap<String, String> animal = new HashMap<>();
                 line = sc.nextLine();
                 String[] data = line.split(",");
                 for(int i = 0; i < data.length; i++) {
                     animal.put(attributes.get(i), data[i]);
                 }
                 animals.add(animal);
-                System.out.println(Arrays.toString(animals.toArray()));
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public ArrayList<HashMap<String, Object>> getAnimals() {
+    public ArrayList<HashMap<String, String>> getAnimals() {
         return animals;
+    }
+    public ArrayList<String> getAttributes() {
+        return attributes;
     }
 }
