@@ -1,4 +1,4 @@
-Animal,Weight_kg,Can_Swim,Can_Fly,Lifespan_years,Habitat,Nocturnal,Diet,Class
+Name,Weight_kg,Can_Swim,Can_Fly,Lifespan_years,Habitat,Nocturnal,Diet,Class
 Sparrow,0.03,No,Yes,3,Forest,No,Herbivore,Bird
 Eagle,6.0,No,Yes,20,Mountains,No,Carnivore,Bird
 Penguin,30.0,Yes,No,15,Polar,No,Carnivore,Bird
