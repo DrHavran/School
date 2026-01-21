@@ -5,6 +5,7 @@ public class Node {
     private Node leftBranch, rightBranch;
     private ArrayList<HashMap<String, String>> points;
     private String checkString;
+    private String option;
     private Check checkReq;
 
     public Node() {
@@ -13,7 +14,7 @@ public class Node {
     }
 
     public boolean check(HashMap<String, String> animal){
-        return checkReq.check(Double.parseDouble(animal.get(checkString)));
+        return checkReq.check(animal.get(checkString));
     }
 
     public void setCheckReq(Check req) {
@@ -34,7 +35,6 @@ public class Node {
     public void setRightBranch(Node rightBranch) {
         this.rightBranch = rightBranch;
     }
-
     public Node getLeftBranch() {
         return leftBranch;
     }
@@ -43,6 +43,12 @@ public class Node {
     }
     public String getCheckString() {
         return checkString;
+    }
+    public String getOption() {
+        return option;
+    }
+    public void setOption(String option) {
+        this.option = option;
     }
     public ArrayList<HashMap<String, String>> getPoints() {
         return points;

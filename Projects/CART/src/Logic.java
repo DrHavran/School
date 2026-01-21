@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Logic {
@@ -11,6 +12,7 @@ public class Logic {
         this.data = new Data();
         generateATree();
         printATree();
+        testTheTree();
     }
 
     private void generateATree() {
@@ -23,6 +25,7 @@ public class Logic {
             Node current = queue.removeFirst();
 
             double bestWeight = Double.MAX_VALUE;
+            String bestOption = "";
             String bestAttribute = "";
             Check bestReq = null;
 
@@ -49,6 +52,7 @@ public class Logic {
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
+                            bestOption = " < " + option;
                             bestReq = req;
                         }
                     }
@@ -65,6 +69,7 @@ public class Logic {
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
+                            bestOption = " = " + option;
                             bestReq = req;
                         }
                     }
@@ -75,6 +80,7 @@ public class Logic {
 
             current.setLeftBranch(left);
             current.setRightBranch(right);
+            current.setOption(bestOption);
 
             for(HashMap<String, String> point : current.getPoints()){
                 assert bestReq != null;
@@ -133,30 +139,57 @@ public class Logic {
         return 1 - total;
     }
 
-    private void printATree(){
-        ArrayList<Node> mainQueue = new ArrayList<>();
-        ArrayList<Node> subQueue = new ArrayList<>();
-        
-        mainQueue.add(root);
+    private void printATree() {
+        System.out.println();
+        printNode(root, "", true);
+    }
+    private void printNode(Node node, String prefix, boolean isLast) {
+        if (node == null) return;
 
-        while(!mainQueue.isEmpty()){
-            Node current = mainQueue.removeFirst();
+        System.out.print(prefix);
 
-            if(current.getLeftBranch() != null){
-                subQueue.add(current.getLeftBranch());
-                subQueue.add(current.getRightBranch());
-                System.out.print("[ " + current.getCheckString() + " ]");
-            }else{
-                System.out.print("[ ");
-                current.getPoints().forEach(x -> System.out.print(x.get(Settings.name) + " "));
-                System.out.print("- " + current.getPoints().getFirst().get(Settings.type));
-                System.out.print(" ]");
+        if(isLast){
+            System.out.print("└──");
+        }else{
+            System.out.print("├──");
+        }
+
+        if (node.getLeftBranch() != null) {
+            System.out.println("[" + node.getCheckString() + node.getOption() + "]");
+
+            String childPrefix = prefix + (isLast ? "    " : "│   ");
+            printNode(node.getLeftBranch(), childPrefix, false);
+            printNode(node.getRightBranch(), childPrefix, true);
+        } else {
+            System.out.print("[");
+            node.getPoints().forEach(x ->
+                    System.out.print(x.get(Settings.name) + " ")
+            );
+            System.out.print("- " + node.getPoints().getFirst().get(Settings.type));
+            System.out.println("]");
+        }
+    }
+
+    private void testTheTree() {
+        System.out.println();
+        for(HashMap<String, String> point : data.getTestPoints()){
+            Node current = root;
+
+            while(current.getLeftBranch() != null){
+                if(current.check(point)){
+                    current = current.getLeftBranch();
+                }else {
+                    current = current.getRightBranch();
+                }
             }
 
-            if(mainQueue.isEmpty()){
-                mainQueue.addAll(subQueue);
-                subQueue.clear();
-                System.out.println();
+            String predicted = current.getPoints().getFirst().get(Settings.type);
+            String actual = point.get(Settings.type);
+            System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
+            if (Objects.equals(predicted, actual)) {
+                System.out.println(" and it's true!");
+            } else {
+                System.out.println(" and it's false!, correct option is " + actual);
             }
         }
     }

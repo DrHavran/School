@@ -4,16 +4,21 @@ import java.util.*;
 public class Data {
     ArrayList<String> attributes;
     ArrayList<HashMap<String, String>> points;
+    ArrayList<HashMap<String, String>> testPoints;
 
     public Data() {
         this.points = new ArrayList<>();
+        this.testPoints = new ArrayList<>();
         this.attributes = new ArrayList<>();
-        loadData();
+        loadData(points, "animals_dataset.csv");
+        attributes.clear();
+        loadData(testPoints, "testAnimals.csv");
+        System.out.println(testPoints.size() + " testPoints loaded");
     }
 
-    private void loadData() {
+    private void loadData(ArrayList<HashMap<String, String>> list, String fileName) {
         try{
-            Scanner sc = new Scanner(new File("animals_dataset.csv"));
+            Scanner sc = new Scanner(new File(fileName));
             String line = sc.nextLine();
             attributes.addAll(List.of(line.split(",")));
             System.out.println(Arrays.toString(attributes.toArray()));
@@ -25,7 +30,7 @@ public class Data {
                 for(int i = 0; i < data.length; i++) {
                     point.put(attributes.get(i), data[i]);
                 }
-                points.add(point);
+                list.add(point);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -34,6 +39,9 @@ public class Data {
 
     public ArrayList<HashMap<String, String>> getPoints() {
         return points;
+    }
+    public ArrayList<HashMap<String, String>> getTestPoints() {
+        return testPoints;
     }
     public ArrayList<String> getAttributes() {
         return attributes;
