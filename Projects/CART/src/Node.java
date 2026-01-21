@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Node {
     private Node leftBranch, rightNode;
-    private ArrayList<HashMap<String, String>> animals;
+    private ArrayList<HashMap<String, String>> points;
     private String checkString;
     private Check checkReq;
 
@@ -18,17 +18,17 @@ public class Node {
     public void setCheckReq(Check req) {
         checkReq = req;
     }
-    public void setAnimals(ArrayList<HashMap<String, String>> animals) {
-        this.animals = animals;
+    public void setPoints(ArrayList<HashMap<String, String>> points) {
+        this.points = points;
     }
-    public void addAnimal(HashMap<String, String> animal) {
-        animals.add(animal);
+    public void addPoint(HashMap<String, String> animal) {
+        points.add(animal);
     }
     public void setCheckString(String checkString) {
         this.checkString = checkString;
     }
 
-    public ArrayList<HashMap<String, String>> getAnimals() {
-        return animals;
+    public ArrayList<HashMap<String, String>> getPoints() {
+        return points;
     }
 }

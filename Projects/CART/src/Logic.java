@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class Logic {
     private Node root;
@@ -13,11 +14,9 @@ public class Logic {
 
     private void generateATree() {
         root = new Node();
-        root.setAnimals(data.getAnimals());
+        root.setPoints(data.getPoints());
         ArrayList<Node> queue = new ArrayList<>();
         queue.add(root);
-
-        root.setCheckReq((i) -> ((Double) i < 25));
 
         while(!queue.isEmpty()) {
             Node current = queue.removeFirst();
@@ -32,11 +31,40 @@ public class Logic {
                 }
 
                 try{
+                    ArrayList<Double> values = new ArrayList<>();
+                    for(HashMap<String, String> point : current.getPoints()){
+                        values.add(Double.parseDouble(point.get(attribute)));
+                    }
+                    values = values.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+                    ArrayList<Double> options = new ArrayList<>();
+                    for(int i = 0; i < values.size()-1; i++){
+                        options.add((values.get(i) + values.get(i+1)) / 2);
+                    }
 
+                    for(Double option : options){
+                        Check req = (i) -> ((Double) i < option);
+                        ArrayList<HashMap<String, String>> leftBranch = new ArrayList<>();
+                        ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
+
+                        for(HashMap<String, String> point : current.getPoints()){
+                            if(req.check(point.get(attribute))){
+                                leftBranch.add(point);
+                            }else{
+                                rightBranch.add(point);
+                            }
+                        }
+
+                        double weight = countWeight(leftBranch, rightBranch);
+                        if(weight < bestWeight){
+                            bestWeight = weight;
+                            bestAttribute = attribute;
+                            bestReq = req;
+                        }
+                    }
                 }catch (NumberFormatException e){
                     HashSet<String> options = new HashSet<>();
-                    for(HashMap<String, String> animal : current.getAnimals()){
-                        options.add(animal.get(attribute));
+                    for(HashMap<String, String> point : current.getPoints()){
+                        options.add(point.get(attribute));
                     }
 
                     for(String option : options){
@@ -44,15 +72,15 @@ public class Logic {
                         ArrayList<HashMap<String, String>> leftBranch = new ArrayList<>();
                         ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
 
-                        for(HashMap<String, String> animal : current.getAnimals()){
-                            if(req.check(animal)){
-                                leftBranch.add(animal);
+                        for(HashMap<String, String> point : current.getPoints()){
+                            if(req.check(point.get(attribute))){
+                                leftBranch.add(point);
                             }else{
-                                rightBranch.add(animal);
+                                rightBranch.add(point);
                             }
                         }
 
-                        double weight = countWeight(leftBranch, rightBranch, current.getAnimals().size());
+                        double weight = countWeight(leftBranch, rightBranch);
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
@@ -64,31 +92,39 @@ public class Logic {
             Node left = new Node();
             Node right = new Node();
 
-            for(HashMap<String, String> animals : current.getAnimals()){
-                assert false;
-                if(bestReq.check(animals)){
-                    left.addAnimal(animals);
+            for(HashMap<String, String> point : current.getPoints()){
+                assert bestReq != null;
+                if(bestReq.check(point)){
+                    left.addPoint(point);
                 }else{
-                    right.addAnimal(animals);
+                    right.addPoint(point);
                 }
             }
             current.setCheckReq(bestReq);
             current.setCheckString(bestAttribute);
+
+            if(countGini(left.getPoints()) != 0){
+                queue.add(left);
+            }
+            if(countGini(right.getPoints()) != 0){
+                queue.add(right);
+            }
         }
     }
 
-    private double countWeight(ArrayList<HashMap<String, String>> left, ArrayList<HashMap<String, String>> right, double total){
+
+    private double countWeight(ArrayList<HashMap<String, String>> left, ArrayList<HashMap<String, String>> right){
+        double total = left.size() + right.size();
         return (left.size()/total) * countGini(left) + (right.size()/total) * countGini(right);
     }
-
     private double countGini(ArrayList<HashMap<String, String>> list){
         String type = Settings.type;
         HashMap<String, Double> types = new HashMap<>();
-        for(HashMap<String, String> animal : list){
-            if(types.containsKey(animal.get(type))){
-                types.replace(animal.get(type), types.get(animal.get(type)) + 1);
+        for(HashMap<String, String> point : list){
+            if(types.containsKey(point.get(type))){
+                types.replace(point.get(type), types.get(point.get(type)) + 1);
             }else{
-                types.put(animal.get(type), 1.0);
+                types.put(point.get(type), 1.0);
             }
         }
 
