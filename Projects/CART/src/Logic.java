@@ -10,6 +10,7 @@ public class Logic {
     public Logic() {
         this.data = new Data();
         generateATree();
+        printATree();
     }
 
     private void generateATree() {
@@ -26,9 +27,7 @@ public class Logic {
             Check bestReq = null;
 
             for(String attribute : data.getAttributes()){
-                System.out.println("Checking " + attribute);
                 if(attribute.equals(Settings.name) || attribute.equals(Settings.type)){
-                    System.out.println("Attribute skipped: " + attribute);
                     continue;
                 }
 
@@ -42,21 +41,18 @@ public class Logic {
                     for(int i = 0; i < values.size()-1; i++){
                         options.add((values.get(i) + values.get(i+1)) / 2);
                     }
-                    System.out.println("Trying number");
 
                     for(Double option : options){
                         Check req = (i) -> (Double.parseDouble((String) i) < option);
 
-                        double weight = sort(current, attribute, req);
+                        double weight = count(current, attribute, req);
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
                             bestReq = req;
-                            System.out.println("Switched best option " + option + " with weight: " + weight);
                         }
                     }
                 }catch (NumberFormatException e){
-                    System.out.println("Trying string");
                     HashSet<String> options = new HashSet<>();
                     for(HashMap<String, String> point : current.getPoints()){
                         options.add(point.get(attribute));
@@ -65,12 +61,11 @@ public class Logic {
                     for(String option : options){
                         Check req = (i) -> (i.equals(option));
 
-                        double weight = sort(current, attribute, req);
+                        double weight = count(current, attribute, req);
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
                             bestReq = req;
-                            System.out.println("Switched best option " + option + " with weight: " + weight);
                         }
                     }
                 }
@@ -78,9 +73,12 @@ public class Logic {
             Node left = new Node();
             Node right = new Node();
 
+            current.setLeftBranch(left);
+            current.setRightBranch(right);
+
             for(HashMap<String, String> point : current.getPoints()){
                 assert bestReq != null;
-                if(bestReq.check(point)){
+                if(bestReq.check(point.get(bestAttribute))){
                     left.addPoint(point);
                 }else{
                     right.addPoint(point);
@@ -88,18 +86,17 @@ public class Logic {
             }
             current.setCheckReq(bestReq);
             current.setCheckString(bestAttribute);
-            System.out.println("Best attribute to split on: " + bestAttribute);
 
             if(countGini(left.getPoints()) != 0){
-                //queue.add(left);
+                queue.add(left);
             }
             if(countGini(right.getPoints()) != 0){
-                //queue.add(right);
+                queue.add(right);
             }
         }
     }
 
-    private double sort(Node current, String attribute, Check req){
+    private double count(Node current, String attribute, Check req){
         ArrayList<HashMap<String, String>> leftBranch = new ArrayList<>();
         ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
 
@@ -134,5 +131,33 @@ public class Logic {
         }
 
         return 1 - total;
+    }
+
+    private void printATree(){
+        ArrayList<Node> mainQueue = new ArrayList<>();
+        ArrayList<Node> subQueue = new ArrayList<>();
+        
+        mainQueue.add(root);
+
+        while(!mainQueue.isEmpty()){
+            Node current = mainQueue.removeFirst();
+
+            if(current.getLeftBranch() != null){
+                subQueue.add(current.getLeftBranch());
+                subQueue.add(current.getRightBranch());
+                System.out.print("[ " + current.getCheckString() + " ]");
+            }else{
+                System.out.print("[ ");
+                current.getPoints().forEach(x -> System.out.print(x.get(Settings.name) + " "));
+                System.out.print("- " + current.getPoints().getFirst().get(Settings.type));
+                System.out.print(" ]");
+            }
+
+            if(mainQueue.isEmpty()){
+                mainQueue.addAll(subQueue);
+                subQueue.clear();
+                System.out.println();
+            }
+        }
     }
 }

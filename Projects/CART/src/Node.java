@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Node {
-    private Node leftBranch, rightNode;
+    private Node leftBranch, rightBranch;
     private ArrayList<HashMap<String, String>> points;
     private String checkString;
     private Check checkReq;
@@ -28,7 +28,22 @@ public class Node {
     public void setCheckString(String checkString) {
         this.checkString = checkString;
     }
+    public void setLeftBranch(Node leftBranch) {
+        this.leftBranch = leftBranch;
+    }
+    public void setRightBranch(Node rightBranch) {
+        this.rightBranch = rightBranch;
+    }
 
+    public Node getLeftBranch() {
+        return leftBranch;
+    }
+    public Node getRightBranch() {
+        return rightBranch;
+    }
+    public String getCheckString() {
+        return checkString;
+    }
     public ArrayList<HashMap<String, String>> getPoints() {
         return points;
     }
