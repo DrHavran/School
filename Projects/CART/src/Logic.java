@@ -26,7 +26,9 @@ public class Logic {
             Check bestReq = null;
 
             for(String attribute : data.getAttributes()){
+                System.out.println("Checking " + attribute);
                 if(attribute.equals(Settings.name) || attribute.equals(Settings.type)){
+                    System.out.println("Attribute skipped: " + attribute);
                     continue;
                 }
 
@@ -40,28 +42,21 @@ public class Logic {
                     for(int i = 0; i < values.size()-1; i++){
                         options.add((values.get(i) + values.get(i+1)) / 2);
                     }
+                    System.out.println("Trying number");
 
                     for(Double option : options){
-                        Check req = (i) -> ((Double) i < option);
-                        ArrayList<HashMap<String, String>> leftBranch = new ArrayList<>();
-                        ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
+                        Check req = (i) -> (Double.parseDouble((String) i) < option);
 
-                        for(HashMap<String, String> point : current.getPoints()){
-                            if(req.check(point.get(attribute))){
-                                leftBranch.add(point);
-                            }else{
-                                rightBranch.add(point);
-                            }
-                        }
-
-                        double weight = countWeight(leftBranch, rightBranch);
+                        double weight = sort(current, attribute, req);
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
                             bestReq = req;
+                            System.out.println("Switched best option " + option + " with weight: " + weight);
                         }
                     }
                 }catch (NumberFormatException e){
+                    System.out.println("Trying string");
                     HashSet<String> options = new HashSet<>();
                     for(HashMap<String, String> point : current.getPoints()){
                         options.add(point.get(attribute));
@@ -69,22 +64,13 @@ public class Logic {
 
                     for(String option : options){
                         Check req = (i) -> (i.equals(option));
-                        ArrayList<HashMap<String, String>> leftBranch = new ArrayList<>();
-                        ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
 
-                        for(HashMap<String, String> point : current.getPoints()){
-                            if(req.check(point.get(attribute))){
-                                leftBranch.add(point);
-                            }else{
-                                rightBranch.add(point);
-                            }
-                        }
-
-                        double weight = countWeight(leftBranch, rightBranch);
+                        double weight = sort(current, attribute, req);
                         if(weight < bestWeight){
                             bestWeight = weight;
                             bestAttribute = attribute;
                             bestReq = req;
+                            System.out.println("Switched best option " + option + " with weight: " + weight);
                         }
                     }
                 }
@@ -102,17 +88,31 @@ public class Logic {
             }
             current.setCheckReq(bestReq);
             current.setCheckString(bestAttribute);
+            System.out.println("Best attribute to split on: " + bestAttribute);
 
             if(countGini(left.getPoints()) != 0){
-                queue.add(left);
+                //queue.add(left);
             }
             if(countGini(right.getPoints()) != 0){
-                queue.add(right);
+                //queue.add(right);
             }
         }
     }
 
+    private double sort(Node current, String attribute, Check req){
+        ArrayList<HashMap<String, String>> leftBranch = new ArrayList<>();
+        ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
 
+        for(HashMap<String, String> point : current.getPoints()){
+            if(req.check(point.get(attribute))){
+                leftBranch.add(point);
+            }else{
+                rightBranch.add(point);
+            }
+        }
+
+        return countWeight(leftBranch, rightBranch);
+    }
     private double countWeight(ArrayList<HashMap<String, String>> left, ArrayList<HashMap<String, String>> right){
         double total = left.size() + right.size();
         return (left.size()/total) * countGini(left) + (right.size()/total) * countGini(right);

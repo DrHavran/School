@@ -9,6 +9,7 @@ public class Node {
 
     public Node() {
         checkString = "";
+        this.points = new ArrayList<>();
     }
 
     public boolean check(HashMap<String, String> animal){
