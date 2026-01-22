@@ -149,9 +149,9 @@ public class Logic {
         System.out.print(prefix);
 
         if(isLast){
-            System.out.print("└──");
+            System.out.print("└── no  ");
         }else{
-            System.out.print("├──");
+            System.out.print("├── yes ");
         }
 
         if (node.getLeftBranch() != null) {
