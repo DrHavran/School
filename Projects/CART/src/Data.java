@@ -11,17 +11,20 @@ public class Data {
         this.testPoints = new ArrayList<>();
         this.attributes = new ArrayList<>();
         loadData(points, "animals_dataset.csv");
-        attributes.clear();
         loadData(testPoints, "testAnimals.csv");
-        System.out.println(testPoints.size() + " testPoints loaded");
+        System.out.println(points.size() + " points loaded");
+        System.out.println(testPoints.size() + " test points loaded");
     }
 
     private void loadData(ArrayList<HashMap<String, String>> list, String fileName) {
         try{
             Scanner sc = new Scanner(new File(fileName));
             String line = sc.nextLine();
-            attributes.addAll(List.of(line.split(",")));
-            System.out.println(Arrays.toString(attributes.toArray()));
+
+            if(attributes.isEmpty()){
+                attributes.addAll(List.of(line.split(",")));
+                System.out.println(Arrays.toString(attributes.toArray()));
+            }
 
             while(sc.hasNextLine()) {
                 HashMap<String, String> point = new HashMap<>();
