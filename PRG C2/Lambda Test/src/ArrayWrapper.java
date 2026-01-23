@@ -23,7 +23,7 @@ public class ArrayWrapper {
         int maxNumb = Integer.MIN_VALUE;
 
         for(Integer numb : numbers){
-            if(max.max(numb) > maxNumb){
+            if(max.max(numb) > max.max(maxNumb)){
                 maxNumb = numb;
             }
         }
