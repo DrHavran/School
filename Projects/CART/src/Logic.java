@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 public class Logic {
     private Node root;
     private final Data data;
+    private final boolean numberAnswer;
 
     public Logic() {
         this.data = new Data();
+        numberAnswer = data.answer();
         generateATree();
         printATree();
         testTheTree();
@@ -37,7 +39,11 @@ public class Logic {
                 try{
                     ArrayList<Double> values = new ArrayList<>();
                     for(HashMap<String, String> point : current.getPoints()){
-                        values.add(Double.parseDouble(point.get(attribute)));
+                        if(!Objects.equals(point.get(attribute), Settings.nonExisting)){
+                            values.add(Double.parseDouble(point.get(attribute)));
+                        }else{
+                            values.add(null);
+                        }
                     }
                     values = values.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
                     ArrayList<Double> options = new ArrayList<>();
@@ -81,23 +87,32 @@ public class Logic {
             current.setLeftBranch(left);
             current.setRightBranch(right);
             current.setOption(bestOption);
+            current.setCheckReq(bestReq);
+            current.setCheckString(bestAttribute);
 
+            System.out.println("Best split on: " + bestAttribute + bestOption);
             for(HashMap<String, String> point : current.getPoints()){
-                assert bestReq != null;
-                if(bestReq.check(point.get(bestAttribute))){
+                if(current.check(point)){
                     left.addPoint(point);
                 }else{
                     right.addPoint(point);
                 }
             }
-            current.setCheckReq(bestReq);
-            current.setCheckString(bestAttribute);
 
-            if(countGini(left.getPoints()) != 0){
-                queue.add(left);
-            }
-            if(countGini(right.getPoints()) != 0){
-                queue.add(right);
+            if(numberAnswer){
+                if(left.getPoints().size() > Settings.minLeafs){
+                    queue.add(left);
+                }
+                if(right.getPoints().size() > Settings.minLeafs){
+                    queue.add(right);
+                }
+            }else{
+                if(countGini(left.getPoints()) != 0){
+                    queue.add(left);
+                }
+                if(countGini(right.getPoints()) != 0){
+                    queue.add(right);
+                }
             }
         }
     }
@@ -107,6 +122,11 @@ public class Logic {
         ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
 
         for(HashMap<String, String> point : current.getPoints()){
+            if(point.get(attribute) == null){
+                rightBranch.add(point);
+                continue;
+            }
+
             if(req.check(point.get(attribute))){
                 leftBranch.add(point);
             }else{
@@ -149,7 +169,11 @@ public class Logic {
         System.out.print(prefix);
 
         if(isLast){
-            System.out.print("└── no  ");
+            if(!prefix.isEmpty()){
+                System.out.print("└── no  ");
+            }else {
+                System.out.print("└── ");
+            }
         }else{
             System.out.print("├── yes ");
         }
@@ -165,7 +189,15 @@ public class Logic {
             node.getPoints().forEach(x ->
                     System.out.print(x.get(Settings.name) + " ")
             );
-            System.out.print("- " + node.getPoints().getFirst().get(Settings.type));
+            if(numberAnswer){
+                double count = 0;
+                for(HashMap<String, String> point : node.getPoints()){
+                    count += Double.parseDouble(point.get(Settings.type));
+                }
+                System.out.print("- average: " + count/node.getPoints().size());
+            }else{
+                System.out.print("- " + node.getPoints().getFirst().get(Settings.type));
+            }
             System.out.println("]");
         }
     }
@@ -183,13 +215,22 @@ public class Logic {
                 }
             }
 
-            String predicted = current.getPoints().getFirst().get(Settings.type);
-            String actual = point.get(Settings.type);
-            System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
-            if (Objects.equals(predicted, actual)) {
-                System.out.println(" and it's true!");
-            } else {
-                System.out.println(" and it's false!, correct option is " + actual);
+            if(numberAnswer){
+                double count = 0;
+                for(HashMap<String, String> data : current.getPoints()){
+                    count += Double.parseDouble(data.get(Settings.type));
+                }
+                System.out.print("The tree guessed that " + point.get(Settings.name) + " is around " + count/current.getPoints().size());
+                System.out.println(" , the real answer was " + point.get(Settings.type));
+            }else{
+                String predicted = current.getPoints().getFirst().get(Settings.type);
+                String actual = point.get(Settings.type);
+                System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
+                if (Objects.equals(predicted, actual)) {
+                    System.out.println(" and it's true!");
+                } else {
+                    System.out.println(" and it's false!, correct option is " + actual);
+                }
             }
         }
     }

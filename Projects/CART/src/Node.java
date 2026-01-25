@@ -13,8 +13,11 @@ public class Node {
         this.points = new ArrayList<>();
     }
 
-    public boolean check(HashMap<String, String> animal){
-        return checkReq.check(animal.get(checkString));
+    public boolean check(HashMap<String, String> point){
+        if(point.get(checkString) != null){
+            return checkReq.check(point.get(checkString));
+        }
+        return false;
     }
 
     public void setCheckReq(Check req) {

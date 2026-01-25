@@ -10,15 +10,15 @@ public class Data {
         this.points = new ArrayList<>();
         this.testPoints = new ArrayList<>();
         this.attributes = new ArrayList<>();
-        loadData(points, "animals_dataset.csv");
-        loadData(testPoints, "testAnimals.csv");
+        loadData(points, "train_house.csv");
+        loadData(testPoints, "test_house.csv");
         System.out.println(points.size() + " points loaded");
         System.out.println(testPoints.size() + " test points loaded");
     }
 
     private void loadData(ArrayList<HashMap<String, String>> list, String fileName) {
         try{
-            Scanner sc = new Scanner(new File(fileName));
+            Scanner sc = new Scanner(new File("data/" + fileName));
             String line = sc.nextLine();
 
             if(attributes.isEmpty()){
@@ -40,6 +40,15 @@ public class Data {
         }
     }
 
+    public boolean answer(){
+        try{
+            double check = Double.parseDouble(points.getFirst().get(Settings.type));
+            System.out.println(check);
+            return true;
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
     public ArrayList<HashMap<String, String>> getPoints() {
         return points;
     }
