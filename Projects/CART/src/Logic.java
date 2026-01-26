@@ -39,11 +39,7 @@ public class Logic {
                 try{
                     ArrayList<Double> values = new ArrayList<>();
                     for(HashMap<String, String> point : current.getPoints()){
-                        if(!Objects.equals(point.get(attribute), Settings.nonExisting)){
-                            values.add(Double.parseDouble(point.get(attribute)));
-                        }else{
-                            values.add(null);
-                        }
+                        values.add(Double.parseDouble(point.get(attribute)));
                     }
                     values = values.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
                     ArrayList<Double> options = new ArrayList<>();
@@ -122,11 +118,6 @@ public class Logic {
         ArrayList<HashMap<String, String>> rightBranch = new ArrayList<>();
 
         for(HashMap<String, String> point : current.getPoints()){
-            if(point.get(attribute) == null){
-                rightBranch.add(point);
-                continue;
-            }
-
             if(req.check(point.get(attribute))){
                 leftBranch.add(point);
             }else{
