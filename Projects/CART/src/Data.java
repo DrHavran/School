@@ -2,18 +2,22 @@ import java.io.File;
 import java.util.*;
 
 public class Data {
-    ArrayList<String> attributes;
-    ArrayList<HashMap<String, String>> points;
-    ArrayList<HashMap<String, String>> testPoints;
+    private final ArrayList<String> attributes;
+    private final ArrayList<HashMap<String, String>> points;
+    private final ArrayList<HashMap<String, String>> testPoints;
+    private final ArrayList<Node> roots;
 
     public Data() {
         this.points = new ArrayList<>();
         this.testPoints = new ArrayList<>();
         this.attributes = new ArrayList<>();
-        loadData(points, "train_house.csv");
-        loadData(testPoints, "test_house.csv");
+        this.roots = new ArrayList<>();
+        loadData(points, "train_animal.csv");
+        loadData(testPoints, "test_animal.csv");
         System.out.println(points.size() + " points loaded");
         System.out.println(testPoints.size() + " test points loaded");
+
+        loadRoots();
     }
 
     private void loadData(ArrayList<HashMap<String, String>> list, String fileName) {
@@ -40,18 +44,34 @@ public class Data {
         }
     }
 
+    private void loadRoots(){
+        if(Settings.bagging){
+            for(int i = 0; i < Settings.trees; i++){
+                Node root = new Node();
+                roots.add(root);
+            }
+            for(int i = 0; i < Settings.trees; i++){
+                for(HashMap<String, String> point : points){
+                    roots.get((int) (Math.random() * roots.size())).addPoint(point);
+                }
+            }
+        }else{
+            Node root = new Node();
+            root.setPoints(points);
+            roots.add(root);
+        }
+    }
+
     public boolean answer(){
         try{
             double check = Double.parseDouble(points.getFirst().get(Settings.type));
             System.out.println(check);
             return true;
-        }catch (NullPointerException e){
+        }catch (NumberFormatException e){
             return false;
         }
     }
-    public ArrayList<HashMap<String, String>> getPoints() {
-        return points;
-    }
+    public ArrayList<Node> getRoots(){ return roots; }
     public ArrayList<HashMap<String, String>> getTestPoints() {
         return testPoints;
     }

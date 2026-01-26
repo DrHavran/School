@@ -26,8 +26,8 @@ public class Node {
     public void setPoints(ArrayList<HashMap<String, String>> points) {
         this.points = points;
     }
-    public void addPoint(HashMap<String, String> animal) {
-        points.add(animal);
+    public void addPoint(HashMap<String, String> point) {
+        points.add(point);
     }
     public void setCheckString(String checkString) {
         this.checkString = checkString;

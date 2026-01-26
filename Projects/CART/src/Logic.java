@@ -1,25 +1,32 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Logic {
-    private Node root;
     private final Data data;
     private final boolean numberAnswer;
 
     public Logic() {
         this.data = new Data();
         numberAnswer = data.answer();
-        generateATree();
+
+        if(Settings.bagging){
+            for(Node root : data.getRoots()){
+                generateATree(root); 
+            }
+        }else{
+            generateATree(data.getRoots().getFirst());
+        }
+
         printATree();
-        testTheTree();
+
+        if(Settings.bagging){
+            testTheTree(data.getRoots());
+        }else{
+            testTheTree(data.getRoots().getFirst());
+        }
     }
 
-    private void generateATree() {
-        root = new Node();
-        root.setPoints(data.getPoints());
+    private void generateATree(Node root) {
         ArrayList<Node> queue = new ArrayList<>();
         queue.add(root);
 
@@ -152,7 +159,9 @@ public class Logic {
 
     private void printATree() {
         System.out.println();
-        printNode(root, "", true);
+        for(Node root : data.getRoots()){
+            printNode(root, "", true);
+        }
     }
     private void printNode(Node node, String prefix, boolean isLast) {
         if (node == null) return;
@@ -193,36 +202,100 @@ public class Logic {
         }
     }
 
-    private void testTheTree() {
+    private void testTheTree(Node root) {
         System.out.println();
         for(HashMap<String, String> point : data.getTestPoints()){
-            Node current = root;
 
-            while(current.getLeftBranch() != null){
-                if(current.check(point)){
-                    current = current.getLeftBranch();
-                }else {
-                    current = current.getRightBranch();
+            Node leaf = getLeaf(root, point);
+
+            if(numberAnswer){
+                double count = 0;
+                for(HashMap<String, String> data : leaf.getPoints()){
+                    count += Double.parseDouble(data.get(Settings.type));
+                }
+                System.out.print("The tree guessed that " + point.get(Settings.name) + " is around " + count/leaf.getPoints().size());
+                System.out.println(" , the real answer was " + point.get(Settings.type));
+            }else{
+                String predicted = leaf.getPoints().getFirst().get(Settings.type);
+                String actual = point.get(Settings.type);
+                System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
+                printStringAnswer(predicted, actual);
+            }
+        }
+    }
+
+    private void printStringAnswer(String predicted, String actual){
+        if (Objects.equals(predicted, actual)) {
+            System.out.println(" and it's true!");
+        } else {
+            System.out.println(" and it's false!, correct option is " + actual);
+        }
+    }
+
+    private void testTheTree(ArrayList<Node> roots){
+        System.out.println();
+        for(HashMap<String, String> point : data.getTestPoints()){
+
+            ArrayList<Double> numberResults = new ArrayList<>();
+            HashMap<String, Integer> stringResults = new HashMap<>();
+            for(Node root : roots){
+
+                Node leaf = getLeaf(root, point);
+
+                if(numberAnswer){
+                    double count = 0;
+                    for(HashMap<String, String> data : leaf.getPoints()){
+                        count += Double.parseDouble(data.get(Settings.type));
+                    }
+                    numberResults.add(count/leaf.getPoints().size());
+                }else{
+                    String type = leaf.getPoints().getFirst().get(Settings.type);
+                    System.out.println("subtree guess: " + type);
+                    if(stringResults.containsKey(type)){
+                        stringResults.replace(type, stringResults.get(type) + 1);
+                    }else{
+                        stringResults.put(type, 1);
+                    }
                 }
             }
 
             if(numberAnswer){
                 double count = 0;
-                for(HashMap<String, String> data : current.getPoints()){
-                    count += Double.parseDouble(data.get(Settings.type));
+                for(Double number : numberResults){
+                    count += number;
                 }
-                System.out.print("The tree guessed that " + point.get(Settings.name) + " is around " + count/current.getPoints().size());
+                System.out.print("The tree guessed that " + point.get(Settings.name) + " is around " + count/numberResults.size());
                 System.out.println(" , the real answer was " + point.get(Settings.type));
             }else{
-                String predicted = current.getPoints().getFirst().get(Settings.type);
+                int maxNumb = 0;
+                String maxString = "";
+
+                for(Map.Entry<String, Integer> entry : stringResults.entrySet()){
+                    if(entry.getValue() > maxNumb){
+                        maxString = entry.getKey();
+                        maxNumb = entry.getValue();
+                    }
+                }
+
+                String predicted = maxString;
                 String actual = point.get(Settings.type);
                 System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
-                if (Objects.equals(predicted, actual)) {
-                    System.out.println(" and it's true!");
-                } else {
-                    System.out.println(" and it's false!, correct option is " + actual);
-                }
+                printStringAnswer(predicted, actual);
             }
         }
+    }
+
+    private Node getLeaf(Node node, HashMap<String, String> point){
+        Node current = node;
+
+        while(current.getLeftBranch() != null){
+            if(current.check(point)){
+                current = current.getLeftBranch();
+            }else {
+                current = current.getRightBranch();
+            }
+        }
+
+        return current;
     }
 }
