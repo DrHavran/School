@@ -9,21 +9,13 @@ public class Logic {
         this.data = new Data();
         numberAnswer = data.answer();
 
-        if(Settings.bagging){
-            for(Node root : data.getRoots()){
-                generateATree(root); 
-            }
-        }else{
-            generateATree(data.getRoots().getFirst());
+        for(Node root : data.getRoots()){
+            generateATree(root);
         }
 
         printATree();
 
-        if(Settings.bagging){
-            testTheTree(data.getRoots());
-        }else{
-            testTheTree(data.getRoots().getFirst());
-        }
+        testTheTree(data.getRoots());
     }
 
     private void generateATree(Node root) {
@@ -38,51 +30,47 @@ public class Logic {
             String bestAttribute = "";
             Check bestReq = null;
 
-            for(String attribute : data.getAttributes()){
-                if(attribute.equals(Settings.name) || attribute.equals(Settings.type)){
-                    continue;
-                }
+            ArrayList<String> attributes  = new ArrayList<>(data.getAttributes());
+            attributes.remove(Settings.type);
+            attributes.remove(Settings.name);
 
-                try{
-                    ArrayList<Double> values = new ArrayList<>();
-                    for(HashMap<String, String> point : current.getPoints()){
-                        values.add(Double.parseDouble(point.get(attribute)));
-                    }
-                    values = values.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
-                    ArrayList<Double> options = new ArrayList<>();
-                    for(int i = 0; i < values.size()-1; i++){
-                        options.add((values.get(i) + values.get(i+1)) / 2);
-                    }
-
-                    for(Double option : options){
-                        Check req = (i) -> (Double.parseDouble((String) i) < option);
-
-                        double weight = count(current, attribute, req);
-                        if(weight < bestWeight){
-                            bestWeight = weight;
-                            bestAttribute = attribute;
-                            bestOption = " < " + option;
-                            bestReq = req;
-                        }
-                    }
-                }catch (NumberFormatException e){
-                    HashSet<String> options = new HashSet<>();
-                    for(HashMap<String, String> point : current.getPoints()){
-                        options.add(point.get(attribute));
-                    }
-
-                    for(String option : options){
-                        Check req = (i) -> (i.equals(option));
-
-                        double weight = count(current, attribute, req);
-                        if(weight < bestWeight){
-                            bestWeight = weight;
-                            bestAttribute = attribute;
-                            bestOption = " = " + option;
-                            bestReq = req;
-                        }
-                    }
-                }
+            for(String attribute : attributes){
+               try{
+                   ArrayList<Double> values = new ArrayList<>();
+                   for(HashMap<String, String> point : current.getPoints()){
+                       values.add(Double.parseDouble(point.get(attribute)));
+                   }
+                   values = values.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+                   ArrayList<Double> options = new ArrayList<>();
+                   for(int i = 0; i < values.size()-1; i++){
+                       options.add((values.get(i) + values.get(i+1)) / 2);
+                   }
+                   for(Double option : options){
+                       Check req = (i) -> (Double.parseDouble((String) i) < option);
+                       double weight = count(current, attribute, req);
+                       if(weight < bestWeight){
+                           bestWeight = weight;
+                           bestAttribute = attribute;
+                           bestOption = " < " + option;
+                           bestReq = req;
+                       }
+                   }
+               }catch (NumberFormatException e){
+                   HashSet<String> options = new HashSet<>();
+                   for(HashMap<String, String> point : current.getPoints()){
+                       options.add(point.get(attribute));
+                   }
+                   for(String option : options){
+                       Check req = (i) -> (i.equals(option));
+                       double weight = count(current, attribute, req);
+                       if(weight < bestWeight){
+                           bestWeight = weight;
+                           bestAttribute = attribute;
+                           bestOption = " = " + option;
+                           bestReq = req;
+                       }
+                   }
+               }
             }
             Node left = new Node();
             Node right = new Node();
@@ -202,36 +190,6 @@ public class Logic {
         }
     }
 
-    private void testTheTree(Node root) {
-        System.out.println();
-        for(HashMap<String, String> point : data.getTestPoints()){
-
-            Node leaf = getLeaf(root, point);
-
-            if(numberAnswer){
-                double count = 0;
-                for(HashMap<String, String> data : leaf.getPoints()){
-                    count += Double.parseDouble(data.get(Settings.type));
-                }
-                System.out.print("The tree guessed that " + point.get(Settings.name) + " is around " + count/leaf.getPoints().size());
-                System.out.println(" , the real answer was " + point.get(Settings.type));
-            }else{
-                String predicted = leaf.getPoints().getFirst().get(Settings.type);
-                String actual = point.get(Settings.type);
-                System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
-                printStringAnswer(predicted, actual);
-            }
-        }
-    }
-
-    private void printStringAnswer(String predicted, String actual){
-        if (Objects.equals(predicted, actual)) {
-            System.out.println(" and it's true!");
-        } else {
-            System.out.println(" and it's false!, correct option is " + actual);
-        }
-    }
-
     private void testTheTree(ArrayList<Node> roots){
         System.out.println();
         for(HashMap<String, String> point : data.getTestPoints()){
@@ -250,7 +208,9 @@ public class Logic {
                     numberResults.add(count/leaf.getPoints().size());
                 }else{
                     String type = leaf.getPoints().getFirst().get(Settings.type);
-                    System.out.println("subtree guess: " + type);
+                    if(roots.size() != 1){
+                        System.out.println("subtree guess: " + type);
+                    }
                     if(stringResults.containsKey(type)){
                         stringResults.replace(type, stringResults.get(type) + 1);
                     }else{
@@ -265,7 +225,7 @@ public class Logic {
                     count += number;
                 }
                 System.out.print("The tree guessed that " + point.get(Settings.name) + " is around " + count/numberResults.size());
-                System.out.println(" , the real answer was " + point.get(Settings.type));
+                System.out.println(", the real answer was " + point.get(Settings.type));
             }else{
                 int maxNumb = 0;
                 String maxString = "";
@@ -280,7 +240,11 @@ public class Logic {
                 String predicted = maxString;
                 String actual = point.get(Settings.type);
                 System.out.print("The tree guessed that " + point.get(Settings.name) + " is " + predicted);
-                printStringAnswer(predicted, actual);
+                if (Objects.equals(predicted, actual)) {
+                    System.out.println(" and it's true!");
+                } else {
+                    System.out.println(" and it's false!, correct option is " + actual);
+                }
             }
         }
     }
