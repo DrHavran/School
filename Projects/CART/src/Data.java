@@ -12,8 +12,8 @@ public class Data {
         this.testPoints = new ArrayList<>();
         this.attributes = new ArrayList<>();
         this.roots = new ArrayList<>();
-        loadData(points, "train_animal.csv");
-        loadData(testPoints, "test_animal.csv");
+        loadData(points, "train_" + Settings.dataset + ".csv");
+        loadData(testPoints, "test_" + Settings.dataset +" .csv");
         System.out.println(points.size() + " points loaded");
         System.out.println(testPoints.size() + " test points loaded");
 
