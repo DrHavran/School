@@ -12,7 +12,7 @@ for %%n in (%*) do (
     if "!operation!"=="%%n" set check="true"
 )
 
-if %check% == "false" exit
+if %check% == "false" exit /B 2
 
 if "%operation%"=="+" set /A result=x+y
 if "%operation%"=="-" set /A result=x-y
