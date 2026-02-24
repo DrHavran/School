@@ -19,6 +19,8 @@ if "%operation%"=="-" set /A result=x-y
 if "%operation%"=="*" set /A result=x*y
 if "%operation%"=="/" set /A result=x/y
 
+if %result% == -1 exit /B 0
+
 echo ---------------------
 echo Result: %result%
 echo ---------------------
