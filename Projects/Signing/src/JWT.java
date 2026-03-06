@@ -5,10 +5,10 @@ import java.util.Objects;
 
 public class JWT {
     public String getToken(String header, String payload) {
-        String codedHeader = CodeBase64(header);
-        String codedPayload = CodeBase64(payload);
+        String codedHeader = encodeBase64(header);
+        String codedPayload = encodeBase64(payload);
 
-        String signature = CodeBase64(Objects.requireNonNull(hash(codedHeader + "." + codedPayload + Settings.privateKey)));
+        String signature = encodeBase64(Objects.requireNonNull(hash(codedHeader + "." + codedPayload + Settings.privateKey)));
 
         return codedHeader+"."+codedPayload+"."+signature;
     }
@@ -17,21 +17,21 @@ public class JWT {
         String codedHeader = token.split("\\.")[0];
         String codedPayload = token.split("\\.")[1];
 
-        String checkSignature = CodeBase64(Objects.requireNonNull(hash(codedHeader + "." + codedPayload + Settings.privateKey)));
+        String checkSignature = encodeBase64(Objects.requireNonNull(hash(codedHeader + "." + codedPayload + Settings.privateKey)));
 
         if(Objects.equals(token.split("\\.")[2], checkSignature)){
-            System.out.println("Header: " + DecodeBase64(codedHeader));
-            System.out.println("Payload: " + DecodeBase64(codedPayload));
+            System.out.println("Header: " + decodeBase64(codedHeader));
+            System.out.println("Payload: " + decodeBase64(codedPayload));
         }else{
             System.out.println("Token did not match");
         }
     }
 
-    private String CodeBase64(String input){
+    private String encodeBase64(String input){
         return Base64.getUrlEncoder().withoutPadding().encodeToString(input.getBytes());
     }
 
-    private String DecodeBase64(String input){
+    private String decodeBase64(String input){
         return new String(Base64.getUrlDecoder().decode(input));
     }
 
