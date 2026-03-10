@@ -1,11 +1,19 @@
 import Item from "./Item"
+import {useState, useEffect} from "react";
 
-function List ({list, Add}) {
+function List ({Add}) {
+    const [list, setItems] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:4000/api/listings")
+          .then(res => res.json())
+          .then(data => setItems(data));
+    }, []);
+
     if (list.length !== 0) {
         return (
-            <div className="rounded-3 p-3">
+            <div className="rounded-3">
                 {list.map((item) => (
-                    <Item key={item.id} Name={item.name} Amount={item.amount} Id={item.id} Img={item.img} Add={Add}/>
+                    <Item key={item.id} Name={item.name} Amount={item.amount} id={item.id} Img={item.img} Add={Add}/>
                 ))}
             </div>
         )

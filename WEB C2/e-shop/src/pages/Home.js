@@ -7,7 +7,7 @@ function Home () {
             <hr></hr>
             <p>There is nothing else to see on this frontpage...</p>
             <div style={{height: "10000px"}}></div>
-            <img src="https://samjenegr.eu/img/samuel-kodytek.jpg" height={"200px"} width={"400px"}></img>
+            <img src="https://samjenegr.eu/img/samuel-kodytek.jpg" height={"200px"} width={"400px"} alt="Sam"></img>
         </div>
     )
 }

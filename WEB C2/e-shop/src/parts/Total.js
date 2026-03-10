@@ -11,7 +11,7 @@ function Total ({list}) {
             </div>
         )
     }else {
-        return (<h3 className="my-4">You dont have anything in your cart</h3>)
+        return (<h3 className="my-4"><b>You dont have anything in your cart</b></h3>)
     }
 }
 
