@@ -9,12 +9,12 @@ body > *{
 }
 
 div {
-    display: flex;
-    justify-content: space-around;
     border: 2px gray solid;
     border-radius: 4px;
     width: 300px;
     padding: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 button {
