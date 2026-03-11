@@ -1,8 +1,7 @@
-let appID = "nabytek.cz"
-let fakeCookiesState = "seruNaVšechno"
-let scope = "name"
-let redirect_uri = "http://127.0.0.1:5500/Client/redirect.html"
-
 function goTo(){
-  window.location.replace(`http://127.0.0.1:5500/OAUTH/oauth.html?response_type=code&client_id=${appID}&redirect_uri=${redirect_uri}&scope=${scope}&state=${fakeCookiesState}`);
+  fetch("http://localhost:8080/getData")
+    .then(response => response.json())
+    .then(data => {
+      window.location.replace(`http://127.0.0.1:5500/OAUTH/oauth.html?response_type=code&client_id=${data.id}&redirect_uri=${data.redirect}&scope=${data.scope}&state=${data.state}`);
+  })
 }
