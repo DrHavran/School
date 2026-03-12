@@ -20,6 +20,16 @@ div {
     justify-content: center;
 }
 
+#input{
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+#token{
+    max-width: 200px;
+    overflow-wrap: break-word;
+}
+
 button {
     background-color: #5da60a;
     border-radius: 5px;

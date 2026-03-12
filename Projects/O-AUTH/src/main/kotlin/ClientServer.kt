@@ -16,13 +16,20 @@ import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 class ClientServer {
+    private val encoder = Encode()
     private val appID = "nabytek.cz"
     private val scope = "name"
     private val secret = "HolaHolaOpratkaVola"
     private val redirect = "http://127.0.0.1:5500/Client/redirect.html"
     private val state = "seruNaVšechno"
 
+    private val userData = HashMap<String, String>()
+
     fun run(port: Int) {
+        userData["name"] = "Samuel Kodytek"
+        userData["description"] = "Some random guy"
+        userData["gender"] = "male?"
+
         println("Starting client server on port $port")
         embeddedServer(Netty, port = port) {
             install(ContentNegotiation) {
@@ -37,10 +44,11 @@ class ClientServer {
                 allowHost("127.0.0.1:5500", schemes = listOf("http"))
                 allowMethod(HttpMethod.Post)
                 allowHeader(HttpHeaders.ContentType)
+                allowHeader(HttpHeaders.Authorization)
             }
 
             routing {
-                get("/getData"){
+                get("/getInfo"){
                     call.respond(mapOf(
                         "id" to appID,
                         "redirect" to redirect,
@@ -65,12 +73,39 @@ class ClientServer {
                             contentType(ContentType.Application.Json)
                             setBody(json.toString())
                         }
-                        println("Client: Response status: ${response.status}")
                         val result = response.bodyAsText()
                         println("Client: Token: $result")
                         call.respondText(result)
                     }else{
                         println("Client: State does not match")
+                    }
+                    client.close()
+                }
+                post("/getData"){
+                    val client = HttpClient(CIO)
+                    val message = call.receive<Map<String, String>>()
+                    val token = call.request.headers["Authorization"]
+                    println(message.toString())
+                    println("Client: Someone is trying to access " + message["scope"])
+                    val response = client.post("http://localhost:8000/verifyToken") {
+                        contentType(ContentType.Text.Plain)
+                        setBody(token)
+                    }
+
+                    if(response.bodyAsText().toBoolean()){
+                        val decodedPayload = encoder.decodeBase64(token.toString().split(".")[1])
+                        val jsonPayload = JSONObject(decodedPayload)
+                        val allowedScope = jsonPayload.getString("scope")
+                        val askedScope = message["scope"]
+
+                        if(allowedScope == askedScope){
+                            println("Client: Scope correct, fetching data")
+                            call.respondText(userData[askedScope].toString())
+                        }else{
+                            println("Client: Asked data is out of your scope")
+                        }
+                    }else{
+                        println("Client: Token invalid")
                     }
                     client.close()
                 }

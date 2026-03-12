@@ -13,12 +13,13 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class OAUTHServer {
+    private val oAUTHSecret = "UzNatoSeru:D"
     private val encoder = Encode()
     private val formatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
-    private val JWT = JWTFunctions()
+    private val JWT = JWTFunctions(oAUTHSecret)
 
     fun run(port: Int){
-        println("OAUTH: Starting OAUTH server on port $port")
+        println("Starting OAUTH server on port $port")
         val allowedSites = HashMap<String, String>()
         allowedSites["nabytek.cz"] = "HolaHolaOpratkaVola"
 
@@ -35,6 +36,7 @@ class OAUTHServer {
             install(CORS) {
                 anyHost()
                 allowHost("127.0.0.1:5500", schemes = listOf("http"))
+                allowHost("localhost:8080", schemes = listOf("http"))
                 allowMethod(HttpMethod.Post)
                 allowHeader(HttpHeaders.ContentType)
             }
@@ -56,7 +58,7 @@ class OAUTHServer {
                     println("OAUTH: Generating code for user from site: " + message["id"])
                     val time = LocalDateTime.now().plusSeconds(30).toString()
                     val code = message["id"]+message["redirect_uri"]+message["state"]+message["scope"]+time
-                    val hash = encoder.hash(code)
+                    val hash = encoder.hash(code, oAUTHSecret)
                     val base  = encoder.encodeBase64(hash)
                     call.respondText(base)
 
@@ -79,7 +81,7 @@ class OAUTHServer {
                         val specificMap = activeCodes[code]
                         activeCodes.remove(code)
                         if( message["id"] == specificMap?.get("id") &&
-                            message["redirect_uri"] == specificMap?.get("redirect_uri") &&
+                            message["redirect"] == specificMap?.get("redirect_uri") &&
                             message["state"] == specificMap?.get("state") &&
                             message["scope"] == specificMap?.get("scope"))
                         {
@@ -102,12 +104,14 @@ class OAUTHServer {
                         println("OAUTH: Code isn't registered")
                     }
                 }
-                post("verifyToken"){
-                    val message = call.receive<Map<String, String>>()
-                    println("OAUTH: Trying to verify a token: " + message["token"])
-                    if(JWT.checkToken(message["token"].toString())){
+                post("/verifyToken"){
+                    val message = call.receive<String>()
+                    println("OAUTH: Trying to verify a token: $message")
+                    if(JWT.checkToken(message)){
+                        println("OAUTH: Token is valid")
                         call.respond(true)
                     }else{
+                        println("OAUTH: Token is invalid")
                         call.respond(false)
                     }
                 }
