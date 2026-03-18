@@ -5,7 +5,7 @@ import {useState, useEffect} from "react";
 function Cart () {
     const [list, setItems] = useState([]);
 
-    useEffect(() => {
+      useEffect(() => {
         fetchCart();
       }, []);
     
