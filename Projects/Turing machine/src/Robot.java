@@ -24,6 +24,7 @@ public class Robot {
     }
 
     public int checkField(int numb){
+        System.out.println(status);
         for(Rule rule : rules.get(status)){
             if(rule.checkNumber(numb)){
                 if(Objects.equals(rule.getMove(), "R")){
@@ -51,7 +52,11 @@ public class Robot {
             this.stopStatus = line[2];
 
             while(sc.hasNextLine()){
-                line = sc.nextLine().split(",");
+                String lineSc = sc.nextLine();
+                if(lineSc.contains("//")){
+                    lineSc = lineSc.split("//")[0].trim();
+                }
+                line = lineSc.split(",");
                 if(line.length != 1){
                     addRule(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]), line[3], line[4]);
                 }

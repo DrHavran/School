@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] tape = {0, 0, 0, 0, 0, -2, -2};
+        int[] tape = {-2, 1, 1, 0, 0, 1, -2, -2};
 
         Robot robot = new Robot("palindrome 5");
 
