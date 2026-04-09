@@ -47,11 +47,18 @@ public class Logic {
         return "Username already exists";
     }
     public ArrayList<Account> getAccounts(String username, String instance){
-        if(!Objects.equals(instance, activeUsers.get(username))){
-            System.out.println("Bad instance");
-            return null;
+        if(checkValidity(username, instance)){
+            return data.getAccounts(username);
         }
-        System.out.println("Correct instance");
-        return data.getAccounts(username);
+        return null;
+    }
+    public void createAccount(String username, String instance){
+        if(checkValidity(username, instance)){
+            data.writeAccount(username);
+        }
+    }
+
+    private boolean checkValidity(String username, String instance){
+        return Objects.equals(instance, activeUsers.get(username));
     }
 }

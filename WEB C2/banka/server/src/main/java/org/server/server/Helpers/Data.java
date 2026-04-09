@@ -1,6 +1,7 @@
 package org.server.server.Helpers;
 
 import org.server.server.Parts.Account;
+import org.server.server.Settings;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -36,18 +37,10 @@ public class Data {
 
                 String id = parts[0];
                 String owner = parts[1];
-                String type = parts[2];
-                double amount = Double.parseDouble(parts[3]);
+                double amount = Double.parseDouble(parts[2]);
 
-                Account acc = new Account(id, type, amount);
-                ArrayList<Account> insideAcc;
-                if(accounts.containsKey(owner)){
-                    insideAcc = accounts.get(owner);
-                }else{
-                    insideAcc = new ArrayList<>();
-                }
-                insideAcc.add(acc);
-                accounts.put(owner, insideAcc);
+                Account acc = new Account(id, amount);
+                addAccount(acc, owner);
             }
             sc.close();
         }catch (Exception e){
@@ -66,6 +59,19 @@ public class Data {
         }
     }
 
+    public void writeAccount(String user){
+        try{
+            FileWriter writer = new FileWriter("accounts.txt", true);
+            int newId = accounts.size() + 1;
+            String idFull = Settings.bankId + "/" + newId;
+            writer.write(idFull + "," + user +"," + 0 + "\n");
+            addAccount( new Account( idFull, 0), user );
+            writer.close();
+        }catch (Exception e){
+            e.fillInStackTrace();
+        }
+    }
+
     public HashMap<String, String> getUsers() {
         return users;
     }
@@ -75,5 +81,15 @@ public class Data {
         }
         System.out.println("No accounts exist for this user");
         return new ArrayList<>();
+    }
+    public void addAccount(Account acc, String owner){
+        ArrayList<Account> insideAcc;
+        if(accounts.containsKey(owner)){
+            insideAcc = accounts.get(owner);
+        }else{
+            insideAcc = new ArrayList<>();
+        }
+        insideAcc.add(acc);
+        accounts.put(owner, insideAcc);
     }
 }

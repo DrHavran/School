@@ -1,7 +1,9 @@
-function Account() {
+function Account({ account }) {
   return (
     <div>
-        <p>zmrd</p>
+        <p>{account.id}</p>
+        <p>Amount: {account.amount} czk</p>
+        <button>View account</button>
     </div>
   );
 }

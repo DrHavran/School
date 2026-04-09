@@ -42,4 +42,11 @@ public class Controller {
 
         return logic.getAccounts(username, instance);
     }
+
+    @PostMapping("/createAccount")
+    public void createAccount(@RequestBody HashMap<String, String> body) {
+        String username = body.get("username");
+        String instance = body.get("instance");
+        logic.createAccount(username, instance);
+    }
 }

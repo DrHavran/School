@@ -11,6 +11,10 @@ function User() {
     let instance = searchParams.get("instance");
 
     useEffect(() => {
+      reloadAcc()
+    }, [id, instance])
+
+    function reloadAcc(){
       fetch("http://localhost:8080/getAccounts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -18,21 +22,34 @@ function User() {
           username: id,
           instance: instance
         }),
-      }).then(data => data.json())
-        .then(data => {
-          if(data == undefined){
+      }).then(res => res.text())   
+        .then(text => {
+          if (!text) {
             window.location.href = "http://localhost:3000/login";
+            return;
           }
-          document.getElementById("main").style.visibility = "visible"
-          setAccounts(data)
-      })
-    }, [id, instance])
+          const data = JSON.parse(text);
+          document.getElementById("main").style.visibility = "visible";
+          setAccounts(data);
+        })
+    }
+
+    function createAccount(){
+      fetch("http://localhost:8080/createAccount", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          username: id,
+          instance: instance
+        }),
+      }).then(() => reloadAcc())
+    }
 
     return (
       <div id="main" style={{ visibility: "hidden" }}>
-          {accounts.map((acc) => (<Account account={acc}/>))}
+          {accounts.map((acc) => (<Account key={acc.id} account={acc}/>))}
           <button>Send money</button>
-          <button>Create account</button>
+          <button onClick={createAccount}>Create account</button>
       </div>
     );
   }
