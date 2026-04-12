@@ -13,6 +13,7 @@ public class Data {
 
     private final HashMap<String, String> users;
     private final HashMap<String, ArrayList<Account>> accounts;
+    private int accountCount;
 
     public Data(){
         this.users = new HashMap<>();
@@ -32,6 +33,7 @@ public class Data {
 
             sc = new Scanner(new File("accounts.txt"));     //loads accounts
             while(sc.hasNextLine()){
+                accountCount++;
                 String line = sc.nextLine();
                 String[] parts = line.split(",");
 
@@ -62,7 +64,8 @@ public class Data {
     public void writeAccount(String user){
         try{
             FileWriter writer = new FileWriter("accounts.txt", true);
-            int newId = accounts.size() + 1;
+            accountCount++;
+            int newId = accountCount;
             String idFull = Settings.bankId + "/" + newId;
             writer.write(idFull + "," + user +"," + 0 + "\n");
             addAccount( new Account( idFull, 0), user );

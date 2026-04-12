@@ -31,7 +31,7 @@ function Login() {
             <button onClick={logIn}>Log in</button>
         </div>
         <p id="error"></p>
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/signup" className="centered-link">Sign Up</Link>
       </div>
     );
   }

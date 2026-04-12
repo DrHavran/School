@@ -3,7 +3,6 @@ function Account({ account }) {
     <div>
         <p>{account.id}</p>
         <p>Amount: {account.amount} czk</p>
-        <button>View account</button>
     </div>
   );
 }

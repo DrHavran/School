@@ -2,15 +2,13 @@ import { Link } from "react-router-dom";
 
 function Navigation() {
   return (
-    <div>
+    <nav>
         <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
         <div>
-            <Link to="/user">User</Link>
-            <Link to="/account">Account</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
         </div>
-    </div>
+    </nav>
   );
 }
 
