@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Data {
@@ -41,7 +42,7 @@ public class Data {
                 String owner = parts[1];
                 double amount = Double.parseDouble(parts[2]);
 
-                Account acc = new Account(id, amount);
+                Account acc = new Account(owner, id, amount);
                 addAccount(acc, owner);
             }
             sc.close();
@@ -61,15 +62,47 @@ public class Data {
         }
     }
 
-    public void writeAccount(String user){
+    public void addAccount(String user){
         try{
-            FileWriter writer = new FileWriter("accounts.txt", true);
             accountCount++;
             int newId = accountCount;
             String idFull = Settings.bankId + "/" + newId;
-            writer.write(idFull + "," + user +"," + 0 + "\n");
-            addAccount( new Account( idFull, 0), user );
+            Account acc = new Account(user, idFull, 0);
+            addAccount(acc, user);
+            writeAccount(acc, user);
+        }catch (Exception e){
+            e.fillInStackTrace();
+        }
+    }
+
+    public void writeAccount(Account account, String user){
+        try{
+            FileWriter writer = new FileWriter("accounts.txt", true);
+            writer.write(account.getId() + "," + user +"," + account.getAmount() + "\n");
             writer.close();
+        } catch (Exception e) {
+            e.fillInStackTrace();
+        }
+    }
+
+    public void updateAccountAmount(String accNumber, double amount){
+        Account acc = getAccount(accNumber);
+        if(acc != null){
+            acc.addAmount(amount);
+            reloadAccounts();
+        }
+    }
+
+    public void reloadAccounts(){
+        try{
+            FileWriter writer = new FileWriter("accounts.txt", false);
+            writer.write("");
+            writer.close();
+            for(ArrayList<Account> allAccounts: accounts.values()){
+                for(Account acc: allAccounts){
+                    writeAccount(acc, acc.getOwner());
+                }
+            }
         }catch (Exception e){
             e.fillInStackTrace();
         }
@@ -84,6 +117,16 @@ public class Data {
         }
         System.out.println("No accounts exist for this user");
         return new ArrayList<>();
+    }
+    public Account getAccount(String id){
+        for(ArrayList<Account> allAccounts: accounts.values()){
+            for(Account acc: allAccounts){
+                if (Objects.equals(acc.getId(), id)){
+                    return acc;
+                }
+            }
+        }
+        return null;
     }
     public void addAccount(Account acc, String owner){
         ArrayList<Account> insideAcc;

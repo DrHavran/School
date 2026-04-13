@@ -2,6 +2,7 @@ import Account from "../parts/Account"
 
 import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function User() {
     const [accounts, setAccounts] = useState([]);
@@ -24,7 +25,7 @@ function User() {
         }),
       }).then(res => res.text())   
         .then(text => {
-          if (!text) {
+          if (!text || text === "null") {
             window.location.href = "http://localhost:3000/login";
             return;
           }
@@ -48,7 +49,9 @@ function User() {
     return (
       <div id="main" style={{ visibility: "hidden" }}>
           {accounts.map((acc) => (<Account key={acc.id} account={acc}/>))}
-          <button>Send money</button>
+          <Link to={`/${id}/sendmoney?instance=${instance}`} className="home-button-red">
+              Send money
+          </Link>
           <button onClick={createAccount}>Create account</button>
       </div>
     );

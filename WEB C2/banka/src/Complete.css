@@ -1,3 +1,5 @@
+/* CSS je po dohodě dělané chatem */
+
 * {
     margin: 0;
     padding: 0;
@@ -392,3 +394,72 @@
     margin-top: 1.5rem;
     width: 100%;
   }
+
+  /* Make select elements look like input fields */
+select, select:focus {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 8px 0 16px;
+  border: 1px solid #cfdfed;
+  border-radius: 48px;
+  font-size: 1rem;
+  background: #ffffff;
+  transition: 0.2s;
+  outline: none;
+  font-family: inherit;
+  appearance: none;         
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%231f6392" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 16px;
+}
+
+select:focus {
+  border-color: #2c7cb6;
+  box-shadow: 0 0 0 3px rgba(44, 124, 182, 0.2);
+}
+
+/* Style the dropdown options (consistent font) */
+option {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px;
+  background: white;
+  color: #1e2a3e;
+}
+/* Make logged-in section horizontal with proper spacing */
+#logged {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Make logged-in section horizontal with proper spacing */
+#logged {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;  /* Increase from 0.5rem to 1.5rem for more breathing room */
+}
+
+/* Style the account name link like a small badge */
+#logged a {
+  background: #eef2fa;
+  padding: 8px 16px;
+  border-radius: 40px;
+  text-decoration: none;
+  color: #0f5b8c;
+  font-weight: 600;
+  margin-right: 0.5rem; /* Extra space on the right of the link */
+}
+
+/* Override global button styles so the logout button doesn't stretch full width */
+#logged button {
+  width: auto;
+  margin: 0;
+  padding: 8px 20px;
+}
+
+/* Add space between the Send money link and Create account button */
+#main .home-button-red {
+  margin-right: 1.5rem;  /* Adjust as needed */
+}

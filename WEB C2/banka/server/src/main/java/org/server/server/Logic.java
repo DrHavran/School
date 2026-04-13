@@ -54,7 +54,41 @@ public class Logic {
     }
     public void createAccount(String username, String instance){
         if(checkValidity(username, instance)){
-            data.writeAccount(username);
+            data.addAccount(username);
+        }
+    }
+    public String sendMoney(String username, String instance, double amount, String receiverId, String senderId){
+        Account receiver = data.getAccount(receiverId);
+        Account sender = data.getAccount(senderId);
+        if(checkValidity(username, instance)){
+            if(receiver == null || sender == null){
+                return "Error: Receiver or Sender does not exist";
+            }else if(!Objects.equals(receiverId.split("/")[0], Settings.bankId)){
+                return "Not implemented yet - different bank";
+            }else if(sender.getAmount() < amount){
+                return "Not enough funds";
+            }
+            data.updateAccountAmount(receiverId, amount);
+            data.updateAccountAmount(senderId, -amount);
+            return "";
+        }else{
+            return "Not valid instance";
+        }
+    }
+
+    public String getName(String instance){
+        for(String key : activeUsers.keySet()){
+            if(activeUsers.get(key).equals(instance)){
+                return key;
+            }
+        }
+        return "";
+    }
+
+    public void logOut(String instance, String username){
+        if(checkValidity(username, instance)){
+            activeUsers.remove(username);
+            System.out.println("User " + username + " logged out");
         }
     }
 

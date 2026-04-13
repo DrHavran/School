@@ -49,4 +49,27 @@ public class Controller {
         String instance = body.get("instance");
         logic.createAccount(username, instance);
     }
+
+    @PostMapping("/sendMoney")
+    public String sendMoney(@RequestBody HashMap<String, String> body) {
+        String username = body.get("username");
+        String instance = body.get("instance");
+        double amount = Double.parseDouble(body.get("amount"));
+        String receiverId = body.get("receiverAccId");
+        String senderId = body.get("senderAccId");
+        return logic.sendMoney(username, instance, amount, receiverId, senderId);
+    }
+
+    @PostMapping("/getName")
+    public String getName(@RequestBody HashMap<String, String> body) {
+        String instance = body.get("instance");
+        return logic.getName(instance);
+    }
+
+    @PostMapping("/logout")
+    public void logOut(@RequestBody HashMap<String, String> body) {
+        String instance = body.get("instance");
+        String username = body.get("username");
+        logic.logOut(instance, username);
+    }
 }
