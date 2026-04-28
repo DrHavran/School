@@ -1,6 +1,5 @@
 #include "draw.h"
 #include "raylib.h"
-#include "../data/ArrayList.h"
 #include "../data/data.h"
 
 void drawWindow() {
@@ -10,26 +9,18 @@ void drawWindow() {
     InitWindow(screenWidth, screenHeight, "Perceptor");
     SetTargetFPS(60);
 }
-void drawNodes(const ArrayList list) {
-    ClearBackground(RAYWHITE);
-    BeginDrawing();
-    for (int i = 0; i < list.size; i++) {
-        const struct node *n = list.data[i];
-        Color color;
-        if (n->category == 1) {
-            color = RED;
-        }else {
-            color = BLUE;
-        }
-        DrawCircle(
-            n->x * GetScreenWidth(),
-            (1 - n->y) * GetScreenHeight(),
-            3, color);
+void drawNode(const Node n) {
+    Color color;
+    if (n.category == 1) {
+        color = RED;
+    }else {
+        color = BLUE;
     }
-    EndDrawing();
+    DrawCircle(
+        n.x * GetScreenWidth(),
+        (1 - n.y) * GetScreenHeight(),
+        3, color);
 }
-void drawLine(void *data) {
-    ClearBackground(RAYWHITE);
-    BeginDrawing();
-    EndDrawing();
+void drawLine(const Line line) {
+    DrawLineV(line.start, line.end, BLACK);
 }

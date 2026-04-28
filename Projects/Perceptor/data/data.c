@@ -33,3 +33,8 @@ ArrayList loadData() {
     fclose(f);
     return list;
 }
+
+void initLine(Line *line) {
+    line->start = (Vector2){ 0, (float)GetScreenHeight()/2 };
+    line->end   = (Vector2){ (float)GetScreenWidth(), (float)GetScreenHeight()/2 };
+}

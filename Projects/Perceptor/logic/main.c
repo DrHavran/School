@@ -17,10 +17,23 @@ int main(void) {
     }
 
     drawWindow();
+    const Line line;
+    initLine(&line);
     while (!WindowShouldClose()) {
-        drawNodes(list);
+        ClearBackground(RAYWHITE);
+        BeginDrawing();
+        for (int i = 0; i < list.size; i++) {
+            const struct node *n = list.data[i];
+            drawNode(*n);
+        }
+        drawLine(line);
+        EndDrawing();
     }
 
     CloseWindow();
     return 0;
+}
+
+void modifyLine(Node node, Line line) {
+
 }
