@@ -1,6 +1,0 @@
-#ifndef PERCEPTOR_DRAW_H
-#define PERCEPTOR_DRAW_H
-
-
-
-#endif //PERCEPTOR_DRAW_H

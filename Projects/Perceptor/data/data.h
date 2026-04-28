@@ -1,5 +1,6 @@
 #ifndef DATA_H
 #define DATA_H
+#include "ArrayList.h"
 
 struct node {
     double x;
@@ -7,8 +8,6 @@ struct node {
     int category;
 };
 
-extern struct node *nodes;
-
-void loadData();
+ArrayList loadData();
 
 #endif
