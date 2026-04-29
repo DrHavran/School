@@ -4,6 +4,7 @@
 #include "../data/data.h"
 
 void drawWindow();
+void drawAll(ArrayList list, Line line);
 void drawNode(Node node);
 void drawLine(Line line);
 

@@ -1,39 +1,36 @@
 #define STB_DS_IMPLEMENTATION
 
 #include <stdio.h>
-
 #include "raylib.h"
 #include "../data/data.h"
 #include "../data/ArrayList.h"
 #include "../draw/draw.h"
 
+void updateLine(Line *line, const Node *n) {
+    line->w1 = line->w1 + n->xLogic;
+    line->w2 = line->w2 + n->yLogic;
+    line->b = line->b + n->b;
+    updateLineFromWeights(line);
+}
+
 int main(void) {
     const ArrayList list = loadData();
-
-    for (int i = 0; i < list.size; i++) {
-        const struct node *n = list.data[i];
-        printf("Node %d: x = %.2f, y = %.2f, category = %d\n",
-               i, n->x, n->y, n->category);
-    }
 
     drawWindow();
     const Line line;
     initLine(&line);
     while (!WindowShouldClose()) {
-        ClearBackground(RAYWHITE);
-        BeginDrawing();
         for (int i = 0; i < list.size; i++) {
             const struct node *n = list.data[i];
-            drawNode(*n);
+            const double value = line.w1 * n->xLogic + line.w2 * n->yLogic + line.b * n->b;
+            if (0 >= value) {
+                updateLine(&line, n);
+                break;
+            }
         }
-        drawLine(line);
-        EndDrawing();
+        drawAll(list, line);
     }
 
     CloseWindow();
     return 0;
-}
-
-void modifyLine(Node node, Line line) {
-
 }

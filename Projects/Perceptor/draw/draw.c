@@ -9,6 +9,16 @@ void drawWindow() {
     InitWindow(screenWidth, screenHeight, "Perceptor");
     SetTargetFPS(60);
 }
+void drawAll(const ArrayList list, const Line line) {
+    ClearBackground(RAYWHITE);
+    BeginDrawing();
+    for (int i = 0; i < list.size; i++) {
+        const struct node *n = list.data[i];
+        drawNode(*n);
+    }
+    drawLine(line);
+    EndDrawing();
+}
 void drawNode(const Node n) {
     Color color;
     if (n.category == 1) {
