@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(Perceptor C)
+project(Perceptron C)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -18,6 +18,8 @@ add_executable(Perceptor
         data/data.c
         data/ArrayList.c
         draw/draw.c
+        logic/logic.c
+        logic/logic.h
 )
 
 target_link_libraries(Perceptor raylib)

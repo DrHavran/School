@@ -15,7 +15,7 @@ typedef struct line {
     Vector2 end;
 } Line;
 
-ArrayList loadData();
+ArrayList loadData(const char *fileName);
 void initLine(Line *line);
 void changeLine(Line *line);
 void updateLineFromWeights(Line *line);

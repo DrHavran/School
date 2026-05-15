@@ -6,13 +6,15 @@
 
 double xMin, xMax, yMin, yMax;
 
-ArrayList loadData() {
+ArrayList loadData(const char *fileName) {
     ArrayList list;
     al_init(&list);
-    FILE *f = fopen("../import_data/data.csv", "r");
+
+    char path[256];
+    snprintf(path, sizeof(path), "../import_data/%s", fileName);
+    FILE *f = fopen(path, "r");
 
     char line[1024];
-
     fgets(line, sizeof(line), f);
 
     while (fgets(line, sizeof(line), f)) {
@@ -30,6 +32,9 @@ ArrayList loadData() {
         n->category = category;
         n->x = x;
         n->y = y;
+        n->b = category;
+        n->xLogic = x;
+        n->yLogic = y;
         if (category == 1) {
             n->xLogic = x;
             n->yLogic = y;
