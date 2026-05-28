@@ -1,7 +1,7 @@
 #ifndef PERCEPTOR_ARRAYLIST_H
 #define PERCEPTOR_ARRAYLIST_H
 
-typedef struct ArrayList {
+typedef struct arrayList {
     void **data;
     int size;
 } ArrayList;

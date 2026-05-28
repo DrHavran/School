@@ -13,13 +13,15 @@ FetchContent_Declare(
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 FetchContent_MakeAvailable(raylib)
 
-add_executable(Perceptor
-        logic/main.c
+add_executable(Perceptron
+        main.c
         data/data.c
         data/ArrayList.c
         draw/draw.c
         logic/logic.c
-        logic/logic.h
+        data/perceptron.c
+        data/node.c
+        data/node.h
 )
 
-target_link_libraries(Perceptor raylib)
+target_link_libraries(Perceptron raylib)
