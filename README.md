@@ -1,3 +1,5 @@
+Just for school projects / homework :p
+
 **How to clone only a specific folder:**
 
 ```bash
