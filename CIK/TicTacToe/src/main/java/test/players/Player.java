@@ -1,22 +1,18 @@
-package Players;
+package test.players;
+
+import test.Logic;
 
 import java.util.ArrayList;
 
 public class Player {
+    private final Logic logic;
     private final int index;
     private final char symbol;
-    private final PlayerType type;
 
-    public Player(char symbol, PlayerType type, int index) {
-        this.index = index;
+    public Player(char symbol, Logic logic) {
+        this.logic = logic;
+        this.index = logic.getPlayerOrder().size();
         this.symbol = symbol;
-        this.type = type;
-    }
-
-    public enum PlayerType {
-        Human,
-        Random,
-        MiniMax
     }
 
     protected ArrayList<int[]> getEmptyPositons(char[][] board){
@@ -35,8 +31,5 @@ public class Player {
     }
     public char getSymbol() {
         return symbol;
-    }
-    public PlayerType getType() {
-        return type;
     }
 }

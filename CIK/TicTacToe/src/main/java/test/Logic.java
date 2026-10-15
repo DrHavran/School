@@ -1,6 +1,10 @@
-package Logic;
+package test;
 
-import Players.*;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ScanResult;
+import test.players.Human;
+import test.players.Player;
+import test.players.Robot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,18 +12,19 @@ import java.util.Comparator;
 
 public class Logic {
     private final int WIN_COUNT;
-    private final int WIDHT, HEIGHT;
+    private final int WIDTH, HEIGHT;
 
     private final char[][] board;
     private int slotsLeft;
     private final ArrayList<Player> playerOrder;
     private boolean gameFinished;
+    private ArrayList<Class<?>> availableClasses;
 
     public Logic(int width, int height, int WIN) {
-        this.WIDHT = width;
+        this.WIDTH = width;
         this.HEIGHT = height;
         this.gameFinished = false;
-        this.slotsLeft = WIDHT*HEIGHT;
+        this.slotsLeft = WIDTH *HEIGHT;
         this.WIN_COUNT = WIN;
         this.playerOrder = new ArrayList<>();
         this.board = new char[height][width];
@@ -27,6 +32,8 @@ public class Logic {
         for (char[] row : board) {
             Arrays.fill(row, 'B');
         }
+
+        loadAvailablePlayers();
     }
 
     public void nextRobotTurn() {
@@ -70,7 +77,7 @@ public class Logic {
             int nX = x + direction[0] * i * sign;
             int nY = y + direction[1] * i * sign;
 
-            if (nX < 0 || nX >= WIDHT || nY < 0 || nY >= HEIGHT) break;
+            if (nX < 0 || nX >= WIDTH || nY < 0 || nY >= HEIGHT) break;
             if (board[nY][nX] != symbol) break;
 
             count++;
@@ -84,7 +91,25 @@ public class Logic {
             Arrays.fill(row, 'B');
         }
         gameFinished = false;
-        this.slotsLeft = WIDHT*HEIGHT;
+        this.slotsLeft = WIDTH *HEIGHT;
+    }
+
+    private void loadAvailablePlayers(){
+        try (
+                ScanResult scan = new ClassGraph()
+                    .acceptPackages("test.players")
+                    .enableClassInfo()
+                    .scan())
+        {
+            ArrayList<Class<?>> classes = new ArrayList<>(
+                    scan.getClassesImplementing(Robot.class.getName())
+                            .loadClasses(Robot.class)
+            );
+
+            classes.add(Human.class);
+
+            this.availableClasses = classes;
+        }
     }
 
     private final int[][] directions = new int[][]{
@@ -97,15 +122,23 @@ public class Logic {
     public int getWIN_COUNT() {
         return WIN_COUNT;
     }
-    public void addPlayer(Player.PlayerType type, char symbol){
-        Player player = switch (type){
-            case Human -> new Human(symbol, type, playerOrder.size());
-            case Random -> new RandomInputs(symbol, type, playerOrder.size());
-            case MiniMax -> new MiniMax(symbol, type, playerOrder, this);
-        };
+    public void addPlayer(Class<? extends Player> type, char symbol) {
+        try {
+            Player player = type
+                    .getDeclaredConstructor(char.class, Logic.class)
+                    .newInstance(symbol, this);
 
+            playerOrder.add(player);
+        } catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
 
-        playerOrder.add(player);
+    public ArrayList<Class<?>> getAvailableClasses() {
+        return availableClasses;
+    }
+    public ArrayList<Player> getPlayerOrder() {
+        return playerOrder;
     }
     public int getSlotsLeft() {
         return slotsLeft;
@@ -120,7 +153,7 @@ public class Logic {
         return isGameFinished() || getSlotsLeft() <= 0;
     }
     public boolean isNextPlayerARobot(){
-        return playerOrder.getFirst().getType() != Player.PlayerType.Human;
+        return playerOrder.getFirst().getClass() != Human.class;
     }
     public Player getNextPlayer(){
         return playerOrder.getFirst();

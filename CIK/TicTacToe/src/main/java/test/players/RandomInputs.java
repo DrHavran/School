@@ -1,4 +1,6 @@
-package Players;
+package test.players;
+
+import test.Logic;
 
 import java.util.ArrayList;
 
@@ -6,8 +8,8 @@ public class RandomInputs extends Player implements Robot {
 
     private final java.util.Random rng = new java.util.Random();
 
-    public RandomInputs(char symbol, PlayerType type, int index) {
-        super(symbol, type, index);
+    public RandomInputs(char symbol, Logic logic) {
+        super(symbol, logic);
     }
 
     @Override

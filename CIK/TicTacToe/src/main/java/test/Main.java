@@ -1,6 +1,4 @@
-package Logic;
-
-import Presentation.Draw;
+package test;
 
 public class Main {
     public static void main(String[] args) {

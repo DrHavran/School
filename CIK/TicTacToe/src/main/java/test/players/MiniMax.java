@@ -1,6 +1,6 @@
-package Players;
+package test.players;
 
-import Logic.Logic;
+import test.Logic;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,13 +11,13 @@ public class MiniMax extends Player implements Robot{
         As well as ideal placement position with move order sorting for the fastest time
      */
 
-    private int DEPTH = 5;
+    private final int DEPTH = 5;
     private final ArrayList<Player> playerQue;
     private final Logic logic;
 
-    public MiniMax(char symbol, PlayerType type, ArrayList<Player> que, Logic logic) {
-        super(symbol, type, que.size());
-        this.playerQue = que;
+    public MiniMax(char symbol, Logic logic) {
+        super(symbol, logic);
+        this.playerQue = logic.getPlayerOrder();
         this.logic = logic;
     }
 

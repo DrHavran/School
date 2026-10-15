@@ -1,16 +1,15 @@
-package Presentation;
+package test;
 
-import Logic.Logic;
-import Players.Player;
-
+import test.players.Human;
+import test.players.MiniMax;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class Draw {
-    private final int WIDTH = 5;
-    private final int HEIGHT = 5;
+    private final int WIDTH = 3;
+    private final int HEIGHT = 3;
     private final int SCREEN_WIDTH = 600;
     private final int SCREEN_HEIGHT = 600;
     private final int WIN_COUNT = 3;
@@ -23,8 +22,8 @@ public class Draw {
         this.logic = new Logic(WIDTH, HEIGHT, WIN_COUNT);
         this.positions = new JButton[HEIGHT][WIDTH];
 
-        logic.addPlayer(Player.PlayerType.MiniMax, 'o');
-        logic.addPlayer(Player.PlayerType.Human, 'x');
+        logic.addPlayer(Human.class, 'o');
+        logic.addPlayer(MiniMax.class, 'x');
 
         drawBoard();
         playRobotTurns();
@@ -44,7 +43,7 @@ public class Draw {
                 int finalX = x;
                 int finalY = y;
 
-                button.addActionListener(_ -> {
+                button.addActionListener(e -> {
                     if (logic.isGameFinished() || logic.getSlotsLeft() <= 0) return;
                     if (logic.isNextPlayerARobot()) return;
 
@@ -94,7 +93,7 @@ public class Draw {
     private void updateBoard() {
         frame.setTitle("Currently playing - "
                 + logic.getNextPlayer().getSymbol()
-                + " ( " + logic.getNextPlayer().getType() + " )");
+                + " ( " + logic.getNextPlayer().getClass().getSimpleName() + " )");
 
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
@@ -114,7 +113,7 @@ public class Draw {
                     "Game finished! The player with symbol - "
                             + logic.getWinningPlayer().getSymbol()
                             + " ( "
-                            + logic.getWinningPlayer().getType()
+                            + logic.getWinningPlayer().getClass().getSimpleName()
                             + " ) won!"
             );
         } else {
