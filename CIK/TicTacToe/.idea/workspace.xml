@@ -5,19 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff256789-c4b0-41e1-9ebd-ca530dca8362" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TicTacToe.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Logic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Players/Human.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Players/MiniMax.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Players/Player.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Players/RandomInputs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Players/Robot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Draw.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Modules/ChangeStatusFormModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Modules/PlaceOrderFormModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Modules/PlaceOrderItemFormModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Objects/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Objects/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Objects/OrderItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/RadekController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/RadekNiggaTestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/test/java/org/server/radekniggatest/RadekNiggaTestApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,23 +63,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Run.executor": "Run",
-    "Gradle.Build TicTacToe.executor": "Run",
-    "Gradle.TicTacToe [:test.Main.main()].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Havran/Desktop/Code/School/CIK/TicTacToe/src/main/java/test/Main.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Run.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build TicTacToe.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TicTacToe [:test.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Havran/Desktop/Code/School/CIK/TicTacToe/src/main/java/test/Main.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Run" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="23" />
@@ -95,6 +100,7 @@
       <updated>1792047758498</updated>
       <workItem from="1792047759776" duration="1894000" />
       <workItem from="1792049689354" duration="1944000" />
+      <workItem from="1793790692976" duration="38000" />
     </task>
     <servers />
   </component>
