@@ -8,8 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class Draw {
-    private final int WIDTH = 3;
-    private final int HEIGHT = 3;
+    private final int WIDTH = 10;
+    private final int HEIGHT = 10;
     private final int SCREEN_WIDTH = 600;
     private final int SCREEN_HEIGHT = 600;
     private final int WIN_COUNT = 3;
@@ -67,13 +67,46 @@ public class Draw {
         updateBoard();
     }
 
+    // Multi-threads the robot turn using SwingWorker
     private void playRobotTurns() {
-        while (!logic.isGameOver() && logic.isNextPlayerARobot()) {
-            logic.nextRobotTurn();
-            updateBoard();
+        if (logic.isGameOver()) {
+            endGame();
+            return;
+        }
+        if (!logic.isNextPlayerARobot()) {
+            setButtonsEnabled(true);
+            return;
         }
 
-        if (logic.isGameOver()) endGame();
+        setButtonsEnabled(false);
+
+        SwingWorker<int[], Void> worker = new SwingWorker<>() {
+            @Override
+            protected int[] doInBackground() {
+                return logic.calculateRobotMove();
+            }
+
+            @Override
+            protected void done() {
+                if (!frame.isDisplayable()) return;
+                try {
+                    int[] move = get();
+                    if (move != null) logic.move(move[0], move[1]);
+                    updateBoard();
+                    playRobotTurns();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    setButtonsEnabled(true);
+                }
+            }
+        };
+        worker.execute();
+    }
+
+    private void setButtonsEnabled(boolean enabled) {
+        for (int y = 0; y < HEIGHT; y++)
+            for (int x = 0; x < WIDTH; x++)
+                positions[y][x].setEnabled(enabled);
     }
 
     private void onKey(JComponent c, int keyCode) {
@@ -108,6 +141,7 @@ public class Draw {
     }
 
     private void endGame() {
+        setButtonsEnabled(false);
         if (logic.isGameFinished()) {
             frame.setTitle(
                     "Game finished! The player with symbol - "

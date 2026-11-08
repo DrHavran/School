@@ -36,12 +36,16 @@ public class Logic {
         loadAvailablePlayers();
     }
 
-    public void nextRobotTurn() {
+    public int[] calculateRobotMove() {
         Player p = playerOrder.getFirst();
         if (!(p instanceof Robot robot)) {
-            throw new IllegalStateException("next() called on non-robot player");
+            throw new IllegalStateException("calculateRobotMove() called on non-robot player");
         }
-        int[] pos = robot.calculateMove(board);
+        return robot.calculateMove(board);
+    }
+
+    public void nextRobotTurn() {
+        int[] pos = calculateRobotMove();
         if (pos == null) return;
         move(pos[0], pos[1]);
     }

@@ -5,24 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff256789-c4b0-41e1-9ebd-ca530dca8362" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Modules/ChangeStatusFormModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Modules/PlaceOrderFormModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Modules/PlaceOrderItemFormModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Objects/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Objects/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/Objects/OrderItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/RadekController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/java/org/server/radekniggatest/RadekNiggaTestApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Radek Nigga Test/src/test/java/org/server/radekniggatest/RadekNiggaTestApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/Draw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/Draw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/Logic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +87,7 @@
       <workItem from="1792047759776" duration="1894000" />
       <workItem from="1792049689354" duration="1944000" />
       <workItem from="1793790692976" duration="38000" />
+      <workItem from="1794157982430" duration="565000" />
     </task>
     <servers />
   </component>
